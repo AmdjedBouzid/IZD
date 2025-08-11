@@ -29,6 +29,9 @@ class BannerController extends Controller
             ]);
 
             if ($request->hasFile('image_path')) {
+                if (!Storage::disk('public')->exists('banners')) {
+                    Storage::disk('public')->makeDirectory('banners');
+                }
                 $data['image_path'] = $request->file('image_path')->store('banners', 'public');
             }
 

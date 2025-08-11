@@ -19,8 +19,8 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                {{-- <th>Huge Title</th>
-                <th>Description</th> --}}
+                <th>Huge Title</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -29,8 +29,8 @@
                 <tr>
                     <td>{{ $company->id }}</td>
                     <td>{{ $company->name }}</td>
-                    {{-- <td>{{ $company->huge_title }}</td>
-                    <td>{{ $company->description }}</td> --}}
+                    <td>{{ $company->huge_title }}</td>
+                    <td>{{ $company->description }}</td>
                     <td>
                         <a href="{{ route('companies.edit', $company) }}">Edit</a>
                         <form action="{{ route('companies.destroy', $company) }}" method="POST" style="display:inline;">

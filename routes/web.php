@@ -7,8 +7,12 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LandingPageController;
+
 
 require __DIR__.'/auth.php';
+
+Route::get('/', [LandingPageController::class, 'index'])->name('landing.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,7 +26,7 @@ Route::middleware('auth')->group(function () {
     ]);
     Route::resource('contacts', ContactController::class)->except(['show']);
     
-    Route::get('/', function () {
+    Route::get('/home', function () {
         return view('home');
     })->name('home');
 });

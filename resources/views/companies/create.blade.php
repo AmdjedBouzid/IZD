@@ -15,7 +15,7 @@
             <input type="text" name="name" value="{{ old('name') }}">
             @error('name') <div style="color: red;">{{ $message }}</div> @enderror
         </div>
-        <div>
+        {{-- <div>
             <label>Huge Title:</label>
             <input type="text" name="huge_title" value="{{ old('huge_title') }}">
             @error('huge_title') <div style="color: red;">{{ $message }}</div> @enderror
@@ -24,7 +24,7 @@
             <label>Description:</label>
             <textarea name="description">{{ old('description') }}</textarea>
             @error('description') <div style="color: red;">{{ $message }}</div> @enderror
-        </div>
+        </div> --}}
         <button type="submit">Save</button>
     </form>
 </div>

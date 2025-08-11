@@ -6,8 +6,11 @@
 <section class="relative w-full h-[600px] flex items-center justify-center overflow-hidden rounded-b-3xl" id="home">
     {{-- Background Images --}}
     <div class="absolute inset-0 w-full h-full -z-10 overflow-hidden">
-        <img id="bannerImage" src="{{ asset('banner1.jpg') }}" alt="Banner"
-            class="w-full h-full object-cover object-center absolute inset-0 transition-opacity duration-1000">
+        @if($banners->isNotEmpty() && $banners->first()->image_path)
+            <img id="bannerImage" src="{{ asset('storage/' . $banners->first()->image_path) }}" alt="Banner"
+                class="w-full h-full object-cover object-center absolute inset-0 transition-opacity duration-1000">
+        @endif
+
     </div>
 
     {{-- Banner Content --}}
@@ -312,9 +315,9 @@
 {{-- Carousel Script --}}
 <script>
     const images = [
-        "{{ asset('banner1.jpg') }}",
-        "{{ asset('banner2.jpg') }}",
-        "{{ asset('banner3.jpg') }}"
+        @foreach($banners as $banner)
+            "{{ asset('storage/' . $banner['image_path']) }}",
+        @endforeach
     ];
 
     let currentIndex = 0;

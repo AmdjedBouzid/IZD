@@ -1,37 +1,87 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'IZDTECH')</title>
+    @vite('resources/css/app.css')
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <style>
+        .mobile-menu {
+            display: none;
+        }
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+        .mobile-menu.active {
+            display: flex;
+        }
+    </style>
+</head>
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+<body class="bg-gray-100 text-gray-800">
 
-            <!-- Page Content -->
-            <main>
-                {{-- {{ $slot }} --}}
-                @yield('content')
-            </main>
+    {{-- Navbar --}}
+    <nav class="w-full fixed z-50 bg-white text-black shadow">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-8 h-16">
+            <div class="font-bold text-2xl tracking-wide cursor-pointer">
+                <span class="text-black" style="font-family: var(--font-primary)">{{ $metadata->website_name }}</span>
+            </div>
+
+            {{-- Desktop Links --}}
+            <ul class="hidden md:flex gap-8 list-none">
+                <li><a href="#home" class="nav-link">Accueil</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contactez-nous</a></li>
+                <li><a href="#info" class="nav-link">Informations</a></li>
+                <li><a href="/works" class="nav-link">Offre De Service</a></li>
+            </ul>
+
+            {{-- Mobile Menu Toggle --}}
+            <div class="md:hidden flex items-center">
+                <button id="menu-toggle" class="text-2xl text-black">☰</button>
+            </div>
         </div>
-    </body>
+
+        {{-- Mobile Menu --}}
+        <ul id="mobile-menu" class="mobile-menu md:hidden flex-col gap-6 mt-4 bg-white p-6 rounded-xl shadow-md absolute top-16 left-4 right-4 z-50">
+            <li><a href="#home" class="nav-link">Accueil</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#contact" class="nav-link">Contactez-nous</a></li>
+            <li><a href="#info" class="nav-link">Informations</a></li>
+            <li><a href="/works" class="nav-link">Offre De Service</a></li>
+        </ul>
+    </nav>
+
+    {{-- Main content --}}
+    <main class="pt-20">
+        @yield('content')
+    </main>
+
+    {{-- JS --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.getElementById("menu-toggle");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const links = document.querySelectorAll(".nav-link");
+
+            menuToggle.addEventListener("click", () => {
+                mobileMenu.classList.toggle("active");
+            });
+
+            links.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    const href = this.getAttribute("href");
+                    if (href.startsWith("#")) {
+                        e.preventDefault();
+                        document.querySelector(href)?.scrollIntoView({
+                            behavior: "smooth"
+                        });
+                        mobileMenu.classList.remove("active");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
 </html>

@@ -23,8 +23,8 @@ class CompanyController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'huge_title' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            // 'huge_title' => 'required|string|max:255',
+            // 'description' => 'nullable|string'
         ]);
 
         try {
@@ -50,8 +50,8 @@ class CompanyController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'huge_title' => 'required|string|max:255',
-            'description' => 'nullable|string'
+            // 'huge_title' => 'required|string|max:255',
+            // 'description' => 'nullable|string'
         ]);
 
         try {

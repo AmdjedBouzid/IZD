@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('metadata', function (Blueprint $table) {
+            $table->id();
+            $table->string('website_name');
+            $table->string('huge_title');
+            $table->text('description')->nullable();
+        });
+
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('huge_title');
-            $table->text('description')->nullable();
         });
         
         Schema::create('services', function (Blueprint $table) {
@@ -63,6 +68,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('metadata');
         Schema::dropIfExists('companies');
         Schema::dropIfExists('services');
         Schema::dropIfExists('banners');
