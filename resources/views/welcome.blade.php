@@ -19,8 +19,8 @@
             <p class="mt-4 text-lg text-gray-700">
                 This is your first Blade + Tailwind page.
             </p>
-            <a href="/home" class="mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Go to Home
+            <a href="/dashboard" class="mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Go to Dashboard
             </a>
         </div>
     </div>
