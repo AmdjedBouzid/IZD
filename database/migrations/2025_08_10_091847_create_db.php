@@ -47,6 +47,7 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->enum('platform', [
+                'location',
                 'phone',
                 'email',
                 'whatsapp',
@@ -58,6 +59,7 @@ return new class extends Migration
                 'website'
             ]);
             $table->string('value');
+            $table->string('name');
         });
 
     }

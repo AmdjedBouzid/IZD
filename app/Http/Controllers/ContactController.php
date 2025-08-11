@@ -24,6 +24,7 @@ class ContactController extends Controller
         $data = $request->validate([
             'platform'  => 'required',
             'value' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
         
         try {
@@ -57,6 +58,7 @@ class ContactController extends Controller
         $data = $request->validate([
             'platform'  => 'required',
             'value' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         try {

@@ -10,8 +10,6 @@
         <div>{{ session('error') }}</div>
     @endif
 
-    <a href="{{ route('messages.create') }}">Create Message</a>
-
     <ul>
         @forelse($messages as $message)
             <li>

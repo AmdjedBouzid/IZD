@@ -14,6 +14,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Value</th>
+                    <th>Name</th>
                     <th>Platform</th>
                     <th>Actions</th>
                 </tr>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{{ $c->id }}</td>
                         <td>{{ $c->value }}</td>
+                        <td>{{ $c->name }}</td>
                         <td>{{ $c->platform }}</td>
                         <td>
                             <a href="{{ route('contacts.edit', $c) }}">Edit</a> |

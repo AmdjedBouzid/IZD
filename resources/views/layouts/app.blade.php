@@ -24,7 +24,9 @@
     <nav class="w-full fixed z-50 bg-white text-black shadow">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-8 h-16">
             <div class="font-bold text-2xl tracking-wide cursor-pointer">
-                <span class="text-black" style="font-family: var(--font-primary)">{{ $metadata->website_name }}</span>
+                @if (isset($metadata))
+                    <span class="text-black" style="font-family: var(--font-primary)">{{ $metadata->website_name }}</span>
+                @endif
             </div>
 
             {{-- Desktop Links --}}

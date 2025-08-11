@@ -14,11 +14,18 @@
             @error('value') <div style="color:red">{{ $message }}</div> @enderror
         </div>
 
+        <div>
+            <label>Name</label>
+            <input type="text" name="name" value="{{ old('name') }}" required>
+            @error('name') <div style="color:red">{{ $message }}</div> @enderror
+        </div>
+
 
         <div class="form-group">
             <label for="platform">Contact Platform</label>
             <select name="platform" id="platform" class="form-control" required>
                 <option value="">-- Select Platform --</option>
+                <option value="location">Location</option>
                 <option value="phone">Phone</option>
                 <option value="email">Email</option>
                 <option value="whatsapp">WhatsApp</option>

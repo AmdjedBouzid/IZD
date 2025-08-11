@@ -7,32 +7,37 @@
     {{-- Background Images --}}
     <div class="absolute inset-0 w-full h-full -z-10 overflow-hidden">
         @if($banners->isNotEmpty() && $banners->first()->image_path)
-            <img id="bannerImage" src="{{ asset('storage/' . $banners->first()->image_path) }}" alt="Banner"
-                class="w-full h-full object-cover object-center absolute inset-0 transition-opacity duration-1000">
+        <img id="bannerImage" src="{{ asset('storage/' . $banners->first()->image_path) }}" alt="Banner"
+        class="w-full h-full object-cover object-center absolute inset-0 transition-opacity duration-1000">
         @endif
-
     </div>
-
+    
     {{-- Banner Content --}}
     <div class="relative z-10 flex flex-col justify-center h-full py-24 px-8 max-w-3xl">
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Bienvenue sur Notre Site
+            {{ $metadata->huge_title }}
         </h1>
         <p class="text-lg md:text-xl text-white/80 mb-8">
-            Découvrez nos services professionnels et nos offres exceptionnelles.
+            @if( $metadata->description )
+            {{ $metadata->description }}
+            @endif
         </p>
+        @if( $services->isNotEmpty() )
         <div class="flex gap-4">
             <a class="px-8 py-3 rounded-md bg-blue-600 text-white font-semibold shadow-md hover:bg-white hover:text-primary transition-colors duration-200"
-                href="#services">
-                Nos services
-            </a>
-            <a href="/works"
-                class="px-8 py-3 rounded-md bg-white text-primary font-semibold shadow-md hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer">
-                Offre De Service
-            </a>
+            href="#services">
+            Nos services
+        </a>
+        <a href="/works"
+        class="px-8 py-3 rounded-md bg-white text-primary font-semibold shadow-md hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer">
+        Offre De Service
+        </a>
+        @endif
         </div>
     </div>
 </section>
+
+@if( $companies->isNotEmpty() )
 
 <section class="w-full py-20 bg-gray-50" id="services">
     <div class="max-w-6xl mx-auto px-2 sm:px-4">
@@ -47,54 +52,61 @@
         <!-- Category Filter -->
         <div class="flex flex-wrap gap-4 mb-8 justify-center w-full">
             <!-- IZDTECH -->
-            <button
+            @foreach($companies as $company)
+                <button
                 class="px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden flex items-center gap-2 bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-[0_0_10px_var(--color-primary)] animate-primary-glow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.827 6.175A4.992 4.992 0 0 1 12 4.5c1.418 0 2.691.586 3.584 1.528M17.657 16.657A8 8 0 1 0 6.343 6.343a8 8 0 0 0 11.314 11.314z" />
-                </svg>
-                IZDTECH
-            </button>
-
-            <!-- IZDFIRE -->
-            <button
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6.827 6.175A4.992 4.992 0 0 1 12 4.5c1.418 0 2.691.586 3.584 1.528M17.657 16.657A8 8 0 1 0 6.343 6.343a8 8 0 0 0 11.314 11.314z" />
+                        </svg>
+                        {{ $company->name }}
+                    </button>
+                    @endforeach
+                    
+                    <!-- IZDFIRE -->
+                    {{-- <button
                 class="relative flex items-center gap-2 px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden bg-red-600 text-white border-red-600 shadow-[0_0_10px_rgba(255,0,0,0.8)] animate-fire-glow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 24 24" class="w-4 h-4">
                     <path d="M12 2C10 5 7 8.5 7 13a5 5 0 1 0 10 0c0-4.5-3-8-5-11z" />
                 </svg>
                 IZDFIRE
-            </button>
+            </button> --}}
         </div>
 
         <!-- Services Grid -->
+        @if( $services->isNotEmpty() )
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <!-- Fire Service Card -->
+            @foreach($services as $service)
             <div
+                        class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
+                        <div
+                        class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-tr from-red-600 via-white to-red-500 ring-4 ring-red-400 animate-fire-glow">
+                            @if($service->image_path)
+                                <img src="{{ asset('storage/' . $service->image_path) }}"
+                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            @endif
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-1">
+                            {{ $service->title }}
+                        </h3>
+                        <p class="text-gray-500 text-sm leading-snug">
+                            {{ $service->description }}
+                        </p>
+                        <a href="#"
+                            class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-red-600 text-white hover:bg-red-700 shadow-red-500">
+                            Details
+                        </a>
+                    </div>
+                @endforeach
+                
+                {{-- <!-- Tech Service Card -->
+                <div
                 class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
                 <div
-                    class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-tr from-red-600 via-white to-red-500 ring-4 ring-red-400 animate-fire-glow">
-                    <img src="https://via.placeholder.com/300x200" alt="Fire Service"
-                        class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">
-                    Fire Safety Service
-                </h3>
-                <p class="text-gray-500 text-sm leading-snug">
-                    Professional fire prevention and safety inspections for businesses and homes.
-                </p>
-                <a href="#"
-                    class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-red-600 text-white hover:bg-red-700 shadow-red-500">
-                    Details
-                </a>
-            </div>
-
-            <!-- Tech Service Card -->
-            <div
-                class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
-                <div
-                    class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-[var(--color-primary)] ring-4 ring-[var(--color-primary)] animate-primary-glow">
+                class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-[var(--color-primary)] ring-4 ring-[var(--color-primary)] animate-primary-glow">
                     <img src="https://via.placeholder.com/300x200" alt="Tech Service"
                         class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
                 </div>
@@ -108,7 +120,7 @@
                     class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)] shadow-[var(--color-primary)]">
                     Details
                 </a>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Pagination -->
@@ -116,12 +128,23 @@
             <button class="px-3 py-1 border rounded hover:bg-gray-100">Précédent</button>
             <button class="px-3 py-1 border rounded hover:bg-gray-100">Suivant</button>
         </div>
+
+        @endif
+    
     </div>
 </section>
+
+@endif
+
 {{-- contact section --}}
 <section class="w-full p-20 bg-gray-50 max-md:p-3" id="contact">
-    <form class="bg-white rounded-2xl shadow-lg p-0 mx-auto flex flex-col md:flex-row border border-gray-100 overflow-hidden w-full">
+    
+    @error('error')
+        <div style="color: red">{{ $message }}</div>
+    @enderror
 
+    <form class="bg-white rounded-2xl shadow-lg p-0 mx-auto flex flex-col md:flex-row border border-gray-100 overflow-hidden w-full" action="{{ route('send-message') }}" method="POST">
+        @csrf
         {{-- Section gauche : En-tête --}}
         <div class="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] text-white w-full md:w-1/2 p-10 flex flex-col justify-center">
             <h2 class="text-4xl font-extrabold mb-4">Contactez-nous</h2>
@@ -135,15 +158,17 @@
 
             {{-- Email ou téléphone --}}
             <div class="flex flex-col gap-2">
-                <label for="emailOrPhone" class="font-bold text-gray-700 text-lg flex items-center gap-2">
+                <label for="emailOrPhone" class="font-bold text-gray-700 text-lg flex items-center gap-2" >
                     <i class="fi fi-mail text-[var(--color-primary)]"></i> Email ou Téléphone
                 </label>
                 <input
+                    name="from" value="{{ old('from') }}"
                     type="text"
                     id="emailOrPhone"
                     class="px-5 py-3 rounded-md border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-gray-900 font-semibold shadow"
                     placeholder="Entrez votre email ou numéro de téléphone" />
             </div>
+            @error('from') <div style="color: red">{{ $message }}</div> @enderror
 
             {{-- Sujet --}}
             <div class="flex flex-col gap-2">
@@ -151,11 +176,14 @@
                     <i class="fi fi-edit-2 text-[var(--color-primary)]"></i> Sujet
                 </label>
                 <input
+                    name="object" value="{{ old('object') }}"
                     type="text"
                     id="subject"
                     class="px-5 py-3 rounded-md border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-gray-900 font-semibold shadow"
                     placeholder="Sujet de votre message" />
             </div>
+            @error('object') <div style="color: red">{{ $message }}</div> @enderror
+
 
             {{-- Message --}}
             <div class="flex flex-col gap-2">
@@ -163,11 +191,13 @@
                     <i class="fi fi-message-circle text-[var(--color-primary)]"></i> Message
                 </label>
                 <textarea
+                    name="content"
                     id="content"
                     rows="5"
                     class="px-5 py-3 rounded-md border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-gray-900 font-semibold resize-none shadow"
-                    placeholder="Tapez votre message ici..."></textarea>
+                    placeholder="Tapez votre message ici...">{{ old('content') }}</textarea>
             </div>
+            @error('content') <div style="color: red">{{ $message }}</div> @enderror
 
             {{-- Bouton d'envoi --}}
             <div class="flex justify-end">
@@ -180,6 +210,9 @@
         </div>
     </form>
 </section>
+
+@if( $contacts->isNotEmpty() )
+
 <footer
     class="w-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white pt-16 pb-8 mt-16"
     id="info">
@@ -192,44 +225,70 @@
             {{-- Logo --}}
             <div>
                 <span class="text-3xl font-extrabold tracking-wide text-white">
-                    IZDTECH
+                    {{ $metadata->website_name }}
                 </span>
             </div>
 
             {{-- Contact Info --}}
             <div class="flex flex-col gap-3 text-white/80 text-sm">
-                <div class="flex items-start gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center text-white">
-                        📧
-                    </span>
-                    <div>
-                        <p class="font-semibold">Support Team</p>
-                        <p>support@izdtech.com</p>
+                @if( isset($contacts['email']) )
+                    @foreach($contacts['email'] as $email)
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 flex items-center justify-center text-white">
+                            📧
+                        </span>
+                        <div>
+                            <p class="font-semibold">{{ $email->name }}</p>
+                            <p>{{ $email->value }}</p>
+                        </div>
                     </div>
-                </div>
+                    @endforeach
+                @endif
+                
+                @if( isset($contacts['phone']) )
+                    @foreach($contacts['phone'] as $phone)
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 flex items-center justify-center text-white">
+                            📞
+                        </span>
+                        <div>
+                            <p class="font-semibold">{{ $phone->name }}</p>
+                            <p>{{ $phone->value }}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                @endif
 
-                <div class="flex items-start gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center text-white">
-                        📞
-                    </span>
-                    <div>
-                        <p class="font-semibold">Customer Service</p>
-                        <p>+213 555 123 456</p>
+                @if( isset($contacts['location']) )
+                    @foreach($contacts['location'] as $location)
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 flex items-center justify-center text-white">
+                            📍
+                        </span>
+                        <div>
+                            <p class="font-semibold">{{ $location->name }}</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="flex items-start gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center text-white">
-                        📍
-                    </span>
-                    <div>
-                        <p class="font-semibold">Guelma, Algeria</p>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
             </div>
 
             {{-- Social Media --}}
-            <div class="flex flex-wrap gap-4 mt-4">
+            @foreach ($contacts as $name => $values)
+                @if( $name != 'email' && $name != 'phone' && $name != 'location' )
+                    @foreach ($values as $value)
+                        <a href="{{ $value->value }}"
+                            class="flex flex-col items-center gap-1 w-24 transition-transform hover:-translate-y-1 hover:scale-110">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20">
+                                <img src="{{ $contactIcons[$name] }}" />
+                            </div>
+                            <span class="text-white/80 text-xs text-center">{{ $name }}</span>
+                        </a>
+                    @endforeach
+                @endif
+            @endforeach
+
+            {{-- <div class="flex flex-wrap gap-4 mt-4">
                 <a href="#"
                     class="flex flex-col items-center gap-1 w-24 transition-transform hover:-translate-y-1 hover:scale-110">
                     <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20">
@@ -245,26 +304,29 @@
                     </div>
                     <span class="text-white/80 text-xs text-center">Instagram</span>
                 </a>
-            </div>
+            </div> --}}
 
             {{-- Button --}}
+            @if( $services->isNotEmpty() )
             <div class="mt-4">
                 <a href="#"
                     class="inline-block px-6 py-2 rounded-md bg-white/10 text-white font-medium shadow-md hover:bg-white/20 transition-all duration-200">
                     Offre De Service
                 </a>
             </div>
+            @endif
         </div>
 
         {{-- Map Section --}}
+        @if( isset($contacts['location']) )
         <div class="w-full h-96 rounded-xl overflow-hidden shadow-md flex flex-col gap-3">
             <div class="text-white flex items-center gap-2">
                 <span>📍</span>
                 <span>Our Location</span>
             </div>
             <iframe
-                title="Guelma Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3195.578765040562!2d7.426904!3d36.465115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12f0f0b99f0b9f9f%3A0x123456789abcdef!2sGuelma!5e0!3m2!1sen!2sdz!4v1700000000000"
+                title="{{$contacts['location'][0]->name}} Location"
+                src="{{$contacts['location'][0]->value}}"
                 width="100%"
                 height="100%"
                 style="border:0;"
@@ -273,11 +335,11 @@
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
+        @endif
 
     </div>
-
-
 </footer>
+@endif
 
 <footer class="w-full bg-blue-700 text-white py-4 border-t border-blue-500">
     <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-xs md:text-sm gap-2 md:gap-0">

@@ -13,6 +13,7 @@ use App\Http\Controllers\LandingPageController;
 require __DIR__.'/auth.php';
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.index');
+Route::post('/sendmessage', [MessageController::class, 'store'])->name('send-message');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -22,12 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('companies', CompanyController::class);
     Route::resource('banners', BannerController::class)->except(['show', 'edit', 'update']);
     Route::resource('messages', MessageController::class)->only([
-        'index', 'create', 'store', 'destroy'
+        'index', 'destroy'
     ]);
     Route::resource('contacts', ContactController::class)->except(['show']);
     
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/admin', function () {
+        return view('admin');
+    })->name('admin');
 });
 

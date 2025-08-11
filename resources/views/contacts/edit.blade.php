@@ -15,6 +15,11 @@
             <input type="text" name="value" value="{{ old('value', $contact->value) }}" required>
             @error('value') <div style="color:red">{{ $message }}</div> @enderror
         </div>
+        <div>
+            <label>Name</label>
+            <input type="text" name="name" value="{{ old('name', $contact->name) }}" required>
+            @error('name') <div style="color:red">{{ $message }}</div> @enderror
+        </div>
 
         <div>
             <label for="platform">Platform</label>
@@ -22,6 +27,7 @@
                 <option value="">-- Select Platform --</option>
                 @php
                     $platforms = [
+                        'location' => 'Location',
                         'phone' => 'Phone',
                         'email' => 'Email',
                         'whatsapp' => 'WhatsApp',

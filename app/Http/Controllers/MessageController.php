@@ -43,9 +43,9 @@ class MessageController extends Controller
         try {
             Message::create($data);
 
-            return redirect()
-                ->route('messages.index')
+            return back()
                 ->with('success', 'Message sent successfully.');
+
         } catch (\Throwable $e) {
             Log::error('Message creation failed: ' . $e->getMessage());
             return back()
