@@ -70,9 +70,10 @@
         </aside>
 
         {{-- Main Content --}}
-        <main class="w-full pt-20 px-4 md:px-10 transition-all duration-300 md:ml-64">
+        <main class="w-full pt-10 px-2 md:px-10 transition-all duration-300 ml-0 md:ml-64">
             @yield('content')
         </main>
+
     </div>
 
     <script>
