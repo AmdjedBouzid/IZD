@@ -17,6 +17,9 @@ Route::get('/admin/services', function () {
 Route::get('/admin/messages', function () {
     return view('messages'); // Also uses same layout
 });
+Route::get('/admin/offres', function () {
+    return view('offres');
+});
 
 
 Route::get('/login', function () {

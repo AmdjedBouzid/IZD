@@ -1,4 +1,4 @@
-@props(['message', 'formatTime'])
+@props(['message'])
 @php
 use Carbon\Carbon;
 @endphp

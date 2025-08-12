@@ -48,9 +48,9 @@
               {{ request()->is('admin/messages*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Messages
                 </a>
-                <a href="/admin/Offre"
+                <a href="/admin/offres"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
-              {{ request()->is('admin/Offre*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+              {{ request()->is('admin/offres*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Offre De Service
                 </a>
                 <a href="/admin/contacts"

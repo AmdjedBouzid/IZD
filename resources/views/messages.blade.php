@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.admin')
 @section('content')
 @php
 // Temporary hardcoded messages, later to be fetched from controller
