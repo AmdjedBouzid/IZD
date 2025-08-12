@@ -8,10 +8,10 @@
     <div class="absolute inset-0 w-full h-full -z-10 overflow-hidden">
         @if($banners->isNotEmpty() && $banners->first()->image_path)
         <img id="bannerImage" src="{{ asset('storage/' . $banners->first()->image_path) }}" alt="Banner"
-        class="w-full h-full object-cover object-center absolute inset-0 transition-opacity duration-1000">
+            class="w-full h-full object-cover object-center absolute inset-0 transition-opacity duration-1000">
         @endif
     </div>
-    
+
     {{-- Banner Content --}}
     <div class="relative z-10 flex flex-col justify-center h-full py-24 px-8 max-w-3xl">
         <h1 style="color: {{ $metadata->font_color }};" class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -25,14 +25,14 @@
         @if( $services->isNotEmpty() )
         <div class="flex gap-4">
             <a class="px-8 py-3 rounded-md bg-blue-600 text-white font-semibold shadow-md hover:bg-white hover:text-primary transition-colors duration-200"
-            href="#services">
-            Nos services
-        </a>
-        <a href="/works"
-        class="px-8 py-3 rounded-md bg-white text-primary font-semibold shadow-md hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer">
-        Offre De Service
-        </a>
-        @endif
+                href="#services">
+                Nos services
+            </a>
+            <a href="/works"
+                class="px-8 py-3 rounded-md bg-white text-primary font-semibold shadow-md hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer">
+                Offre De Service
+            </a>
+            @endif
         </div>
     </div>
 </section>
@@ -53,19 +53,19 @@
         <div class="flex flex-wrap gap-4 mb-8 justify-center w-full">
             <!-- IZDTECH -->
             @foreach($companies as $company)
-                <button
+            <button
                 class="px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden flex items-center gap-2 bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-[0_0_10px_var(--color-primary)] animate-primary-glow">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M6.827 6.175A4.992 4.992 0 0 1 12 4.5c1.418 0 2.691.586 3.584 1.528M17.657 16.657A8 8 0 1 0 6.343 6.343a8 8 0 0 0 11.314 11.314z" />
-                        </svg>
-                        {{ $company->name }}
-                    </button>
-                    @endforeach
-                    
-                    <!-- IZDFIRE -->
-                    {{-- <button
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6.827 6.175A4.992 4.992 0 0 1 12 4.5c1.418 0 2.691.586 3.584 1.528M17.657 16.657A8 8 0 1 0 6.343 6.343a8 8 0 0 0 11.314 11.314z" />
+                </svg>
+                {{ $company->name }}
+            </button>
+            @endforeach
+
+            <!-- IZDFIRE -->
+            {{-- <button
                 class="relative flex items-center gap-2 px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden bg-red-600 text-white border-red-600 shadow-[0_0_10px_rgba(255,0,0,0.8)] animate-fire-glow">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 24 24" class="w-4 h-4">
@@ -81,28 +81,28 @@
             <!-- Fire Service Card -->
             @foreach($services as $service)
             <div
-                        class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
-                        <div
-                        class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-tr from-red-600 via-white to-red-500 ring-4 ring-red-400 animate-fire-glow">
-                            @if($service->image_path)
-                                <img src="{{ asset('storage/' . $service->image_path) }}"
-                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                            @endif
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-1">
-                            {{ $service->title }}
-                        </h3>
-                        <p class="text-gray-500 text-sm leading-snug">
-                            {{ $service->description }}
-                        </p>
-                        <a href="#"
-                            class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-red-600 text-white hover:bg-red-700 shadow-red-500">
-                            Details
-                        </a>
-                    </div>
-                @endforeach
-                
-                {{-- <!-- Tech Service Card -->
+                class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
+                <div
+                    class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-tr from-red-600 via-white to-red-500 ring-4 ring-red-400 animate-fire-glow">
+                    @if($service->image_path)
+                    <img src="{{ asset('storage/' . $service->image_path) }}"
+                        class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                    @endif
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-1">
+                    {{ $service->title }}
+                </h3>
+                <p class="text-gray-500 text-sm leading-snug">
+                    {{ $service->description }}
+                </p>
+                <a href="#"
+                    class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-red-600 text-white hover:bg-red-700 shadow-red-500">
+                    Details
+                </a>
+            </div>
+            @endforeach
+
+            {{-- <!-- Tech Service Card -->
                 <div
                 class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
                 <div
@@ -130,7 +130,7 @@
         </div>
 
         @endif
-    
+
     </div>
 </section>
 
@@ -138,9 +138,9 @@
 
 {{-- contact section --}}
 <section class="w-full p-20 bg-gray-50 max-md:p-3" id="contact">
-    
+
     @error('error')
-        <div style="color: red">{{ $message }}</div>
+    <div style="color: red">{{ $message }}</div>
     @enderror
 
     <form class="bg-white rounded-2xl shadow-lg p-0 mx-auto flex flex-col md:flex-row border border-gray-100 overflow-hidden w-full" action="{{ route('send-message') }}" method="POST">
@@ -158,7 +158,7 @@
 
             {{-- Email ou téléphone --}}
             <div class="flex flex-col gap-2">
-                <label for="emailOrPhone" class="font-bold text-gray-700 text-lg flex items-center gap-2" >
+                <label for="emailOrPhone" class="font-bold text-gray-700 text-lg flex items-center gap-2">
                     <i class="fi fi-mail text-[var(--color-primary)]"></i> Email ou Téléphone
                 </label>
                 <input
@@ -232,60 +232,60 @@
             {{-- Contact Info --}}
             <div class="flex flex-col gap-3 text-white/80 text-sm">
                 @if( isset($contacts['email']) )
-                    @foreach($contacts['email'] as $email)
-                    <div class="flex items-start gap-3">
-                        <span class="w-6 h-6 flex items-center justify-center text-white">
-                            📧
-                        </span>
-                        <div>
-                            <p class="font-semibold">{{ $email->name }}</p>
-                            <p>{{ $email->value }}</p>
-                        </div>
+                @foreach($contacts['email'] as $email)
+                <div class="flex items-start gap-3">
+                    <span class="w-6 h-6 flex items-center justify-center text-white">
+                        📧
+                    </span>
+                    <div>
+                        <p class="font-semibold">{{ $email->name }}</p>
+                        <p>{{ $email->value }}</p>
                     </div>
-                    @endforeach
+                </div>
+                @endforeach
                 @endif
-                
+
                 @if( isset($contacts['phone']) )
-                    @foreach($contacts['phone'] as $phone)
-                    <div class="flex items-start gap-3">
-                        <span class="w-6 h-6 flex items-center justify-center text-white">
-                            📞
-                        </span>
-                        <div>
-                            <p class="font-semibold">{{ $phone->name }}</p>
-                            <p>{{ $phone->value }}</p>
-                        </div>
+                @foreach($contacts['phone'] as $phone)
+                <div class="flex items-start gap-3">
+                    <span class="w-6 h-6 flex items-center justify-center text-white">
+                        📞
+                    </span>
+                    <div>
+                        <p class="font-semibold">{{ $phone->name }}</p>
+                        <p>{{ $phone->value }}</p>
                     </div>
-                    @endforeach
+                </div>
+                @endforeach
                 @endif
 
                 @if( isset($contacts['location']) )
-                    @foreach($contacts['location'] as $location)
-                    <div class="flex items-start gap-3">
-                        <span class="w-6 h-6 flex items-center justify-center text-white">
-                            📍
-                        </span>
-                        <div>
-                            <p class="font-semibold">{{ $location->name }}</p>
-                        </div>
+                @foreach($contacts['location'] as $location)
+                <div class="flex items-start gap-3">
+                    <span class="w-6 h-6 flex items-center justify-center text-white">
+                        📍
+                    </span>
+                    <div>
+                        <p class="font-semibold">{{ $location->name }}</p>
                     </div>
-                    @endforeach
+                </div>
+                @endforeach
                 @endif
             </div>
 
             {{-- Social Media --}}
             @foreach ($contacts as $name => $values)
-                @if( $name != 'email' && $name != 'phone' && $name != 'location' )
-                    @foreach ($values as $value)
-                        <a href="{{ $value->value }}"
-                            class="flex flex-col items-center gap-1 w-24 transition-transform hover:-translate-y-1 hover:scale-110">
-                            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20">
-                                <img src="{{ $contactIcons[$name] }}" />
-                            </div>
-                            <span class="text-white/80 text-xs text-center">{{ $name }}</span>
-                        </a>
-                    @endforeach
-                @endif
+            @if( $name != 'email' && $name != 'phone' && $name != 'location' )
+            @foreach ($values as $value)
+            <a href="{{ $value->value }}"
+                class="flex flex-col items-center gap-1 w-24 transition-transform hover:-translate-y-1 hover:scale-110">
+                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20">
+                    <img src="{{ $contactIcons[$name] }}" />
+                </div>
+                <span class="text-white/80 text-xs text-center">{{ $name }}</span>
+            </a>
+            @endforeach
+            @endif
             @endforeach
 
             {{-- <div class="flex flex-wrap gap-4 mt-4">
@@ -378,7 +378,7 @@
 <script>
     const images = [
         @foreach($banners as $banner)
-            "{{ asset('storage/' . $banner['image_path']) }}",
+        "{{ asset('storage/' . $banner['image_path']) }}",
         @endforeach
     ];
 
