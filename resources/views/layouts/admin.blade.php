@@ -36,7 +36,7 @@
                 <a href="/admin/metadata"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
               {{ request()->is('admin/metadata*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
-                    Bannieres
+                    Métadonnées & Bannieres 
                 </a>
                 <a href="/admin/services"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg

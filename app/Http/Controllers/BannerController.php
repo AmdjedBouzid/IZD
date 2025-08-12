@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Metadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -12,22 +13,43 @@ class BannerController extends Controller
     public function index()
     {
         $banners = Banner::all();
-        return view('banners.index', [
+        
+        return view('metadata', [
+            'metadata' => Metadata::first(),
             'banners' => $banners]);
     }
 
-    public function create()
+    public function deleteMultiple(Request $request)
     {
-        return view('banners.create');
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'integer|exists:banners,id',
+        ]);
+        try { 
+            $banners = Banner::whereIn('id', $request->ids)->get();
+            foreach ($banners as $banner) {
+                if ($banner->image_path) {
+                    Storage::disk('public')->delete($banner->image_path);
+                }
+            }
+            Banner::whereIn('id', $request->ids)->delete();
+            return response()->json(['message' => 'Banners deleted successfully.']);
+        } catch (\Throwable $e) {
+            Log::error('Banner deletion failed: ' . $e->getMessage());
+        
+            return redirect()
+                ->back()
+                ->with('error', 'Something went wrong while deleting the banner.');
+        }
     }
-
+    
+    
     public function store(Request $request)
     {
+        $data = $request->validate([
+            'image_path' => 'nullable|image',
+        ]);
         try {
-            $data = $request->validate([
-                'image_path' => 'nullable|image|max:2048',
-            ]);
-
             if ($request->hasFile('image_path')) {
                 if (!Storage::disk('public')->exists('banners')) {
                     Storage::disk('public')->makeDirectory('banners');
@@ -38,36 +60,14 @@ class BannerController extends Controller
             Banner::create($data);
 
             return redirect()
-                ->route('banners.index')
+                ->route('banners&metadata')
                 ->with('success', 'Banner created successfully.');
         } catch (\Throwable $e) {
-            Log::error('Banner creation failed: ' . $e->getMessage());
 
             return redirect()
                 ->back()
                 ->withInput()
                 ->with('error', 'Something went wrong while creating the banner.');
-        }
-    }
-
-    public function destroy(Banner $banner)
-    {
-        try {
-            if ($banner->image_path) {
-                Storage::disk('public')->delete($banner->image_path);
-            }
-
-            $banner->delete();
-
-            return redirect()
-                ->route('banners.index')
-                ->with('success', 'Banner deleted successfully.');
-        } catch (\Throwable $e) {
-            Log::error('Banner deletion failed: ' . $e->getMessage());
-
-            return redirect()
-                ->back()
-                ->with('error', 'Something went wrong while deleting the banner.');
         }
     }
 }

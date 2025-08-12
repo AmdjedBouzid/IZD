@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Metadata extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'huge_title', 'description'];
-    
+
+    protected $fillable = [
+        'website_name',
+        'website_logo_path',
+        'huge_title',
+        'description',
+        'font_color',
+    ];
+
     public $timestamps = false;
 }

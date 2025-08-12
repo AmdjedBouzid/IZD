@@ -6,18 +6,21 @@
             </h2>
 
             {{-- Form that redirects to / --}}
-            <form action="{{ url('/admin/metadata') }}" method="GET" class="space-y-5">
+            <form method="POST" action="{{ route('login') }}" ">
+                @csrf
                 <div>
                     <label for="identifier" class="block text-sm font-medium text-gray-700">
                         Nom d'utilisateur ou Email
                     </label>
                     <input
                         type="text"
-                        name="identifier"
+                        name="email" 
+                        :value="old('email')"
                         id="identifier"
                         class="mt-1 block w-full rounded-xl border border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary"
                         placeholder="Entrez votre nom d'utilisateur ou email"
                         required>
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
                 <div>
@@ -27,15 +30,24 @@
                     <input
                         type="password"
                         name="password"
+                        required autocomplete="current-password"
                         id="password"
                         class="mt-1 block w-full rounded-xl border border-gray-300 shadow-sm p-3 focus:ring-primary focus:border-primary"
                         placeholder="Entrez votre mot de passe"
                         required>
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                </div>
+
+                <div class="block mt-4">
+                    <label for="remember_me" class="inline-flex items-center">
+                        <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                        <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                    </label>
                 </div>
 
                 <button
                     type="submit"
-                    class="w-full bg-primary text-white font-semibold py-3 rounded-xl shadow hover:opacity-90 transition cursor-pointer">
+                    class="mt-4 w-full bg-primary text-white font-semibold py-3 rounded-xl shadow hover:opacity-90 transition cursor-pointer">
                     Se connecter
                 </button>
             </form>

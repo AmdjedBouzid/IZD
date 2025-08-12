@@ -14,10 +14,10 @@
     
     {{-- Banner Content --}}
     <div class="relative z-10 flex flex-col justify-center h-full py-24 px-8 max-w-3xl">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+        <h1 style="color: {{ $metadata->font_color }};" class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             {{ $metadata->huge_title }}
         </h1>
-        <p class="text-lg md:text-xl text-white/80 mb-8">
+        <p class="text-lg md:text-xl mb-8" style="color: {{ $metadata->font_color }}; opacity: 0.8">
             @if( $metadata->description )
             {{ $metadata->description }}
             @endif

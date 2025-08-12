@@ -49,7 +49,7 @@
         </div>
 
         <div class="card">
-            <a href="{{ route('banners.index') }}">🖼 Manage Banners</a>
+            <a href="{{ route('banners&metadata') }}">🖼 Manage Banners</a>
         </div>
 
         <div class="card">

@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('metadata', function (Blueprint $table) {
             $table->id();
             $table->string('website_name');
+            $table->string('website_logo_path');
             $table->string('huge_title');
             $table->text('description')->nullable();
+            $table->string('font_color', 20)->default('#FFFFFF');
         });
 
         Schema::create('companies', function (Blueprint $table) {
@@ -76,6 +78,5 @@ return new class extends Migration
         Schema::dropIfExists('banners');
         Schema::dropIfExists('messages');
         Schema::dropIfExists('contacts');
-        
     }
 };

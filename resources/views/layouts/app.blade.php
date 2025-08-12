@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'IZDTECH')</title>
+    <title>@yield('title', '{{ $metadata->website_name }}')</title>
     @vite('resources/css/app.css')
-
+    <link rel="icon" href="{{ Storage::url($metadata->website_logo_path) }}" type="image/png">
     <style>
         .mobile-menu {
             display: none;
@@ -25,7 +25,11 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between px-8 h-16">
             <div class="font-bold text-2xl tracking-wide cursor-pointer">
                 @if (isset($metadata))
-                    <span class="text-black" style="font-family: var(--font-primary)">{{ $metadata->website_name }}</span>
+                <img
+                    id="logo-preview"
+                    src="{{ Storage::url($metadata->website_logo_path) }}"
+                    alt="Logo preview"
+                    class="w-20 h-20" />
                 @endif
             </div>
 
