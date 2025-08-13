@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Panel')</title>
+    <link rel="icon" href="{{ Storage::url($metadata->website_logo_path) }}" type="image/png">
     @vite('resources/css/app.css')
 </head>
 
@@ -33,19 +34,24 @@
 
             {{-- Navigation --}}
             <nav class="flex flex-col space-y-2 mb-6">
-                <a href="/admin/metadata"
+                <a href="{{ route('banners&metadata') }}"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
-              {{ request()->is('admin/metadata*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
-                    Métadonnées & Bannieres 
+              {{ str_starts_with(request()->url(), route('banners&metadata')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+                    Bannières & Métadonnées
                 </a>
-                <a href="/admin/services"
-                    class="flex items-center gap-3 px-4 py-2 rounded-lg
-              {{ request()->is('admin/services*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+                <a href="{{ route('companies.index') }}"
+                class="flex items-center gap-3 px-4 py-2 rounded-lg
+              {{ str_starts_with(request()->url(), route('companies.index')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+                    Entreprises
+                </a>
+                <a href="{{ route('services.index') }}"
+                class="flex items-center gap-3 px-4 py-2 rounded-lg
+              {{ str_starts_with(request()->url(), route('services.index')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Services
                 </a>
-                <a href="/admin/messages"
+                <a href="{{ route('messages.index') }}"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
-              {{ request()->is('admin/messages*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+              {{ str_starts_with(request()->url(), route('messages.index')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Messages
                 </a>
                 <a href="/admin/Offre"
@@ -57,6 +63,11 @@
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
               {{ request()->is('admin/contacts*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Contacts
+                </a>
+                <a href="{{ route('profile') }}"
+                    class="flex items-center gap-3 px-4 py-2 rounded-lg
+              {{ str_starts_with(request()->url(),route('profile')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+                    Mon Profil
                 </a>
             </nav>
 
@@ -70,9 +81,10 @@
         </aside>
 
         {{-- Main Content --}}
-        <main class="w-full pt-20 px-4 md:px-10 transition-all duration-300 md:ml-64">
+        <main class="w-full pt-10 px-2 md:px-10 transition-all duration-300 ml-0 md:ml-64">
             @yield('content')
         </main>
+
     </div>
 
     <script>

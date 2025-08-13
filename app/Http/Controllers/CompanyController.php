@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Metadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -11,20 +12,15 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('companies.index', ['companies'=>$companies]);
+        $metadata = Metadata::first();
+        return view('companies.index', ['companies'=>$companies, 'metadata' => $metadata]);
     }
 
-    public function create()
-    {
-        return view('companies.create');
-    }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            // 'huge_title' => 'required|string|max:255',
-            // 'description' => 'nullable|string'
         ]);
 
         try {
@@ -41,17 +37,10 @@ class CompanyController extends Controller
         }
     }
 
-    public function edit(Company $company)
-    {
-        return view('companies.edit', compact('company'));
-    }
-
     public function update(Request $request, Company $company)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            // 'huge_title' => 'required|string|max:255',
-            // 'description' => 'nullable|string'
         ]);
 
         try {

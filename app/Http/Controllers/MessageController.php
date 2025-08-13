@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Metadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -15,7 +16,8 @@ class MessageController extends Controller
     {
         try {
             $messages = Message::all();
-            return view('messages.index', compact('messages'));
+            $metadata = Metadata::first(); 
+            return view('messages', compact('messages', 'metadata'));
         } catch (\Throwable $e) {
             Log::error('Failed to fetch messages: ' . $e->getMessage());
             return back()->with('error', 'Unable to load messages.');

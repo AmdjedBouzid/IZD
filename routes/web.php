@@ -10,6 +10,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MetadataController;
 use App\Models\Banner;
+use App\Models\Metadata;
+use Illuminate\Http\Request;
 
 require __DIR__.'/auth.php';
 
@@ -19,15 +21,26 @@ Route::post('/sendmessage', [MessageController::class, 'store'])->name('send-mes
 
 Route::middleware('auth')->group(function () {
     
-    // ! For banners metadata
     Route::prefix('admin')->group(function () {
-    
+        
         Route::get('/', function () {
             return view('admin');
         })->name('admin');
-    
+        
+        // ! For banners metadata
         Route::get('/banners&metadata', [BannerController::class, 'index'])->name('banners&metadata');
-    
+
+        Route::resource('messages', MessageController::class)->only(['index', 'destroy']);
+        
+        Route::resource('services', ServiceController::class);
+        
+        Route::resource('companies', CompanyController::class)->except(['show', 'create', 'edit']);
+
+        Route::get('/profile', function (Request $request) {
+            return view('resetPassword',compact('request') );
+        })->name('profile');
+
+
     });
     
     Route::put('/metadata/{metadata}', [MetadataController::class, 'update'])->name('metadata.update');
@@ -42,12 +55,7 @@ Route::middleware('auth')->group(function () {
 
     
     
-    Route::resource('services', ServiceController::class);
     
-    Route::resource('companies', CompanyController::class);
-    Route::resource('messages', MessageController::class)->only([
-        'index', 'destroy'
-    ]);
 
     Route::resource('contacts', ContactController::class)->except(['show']);
     

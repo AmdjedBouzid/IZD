@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Metadata;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
 
 class MetadataController extends Controller
 {
@@ -21,6 +21,7 @@ class MetadataController extends Controller
         ]);
         try { 
             if ($request->hasFile('website_logo_path')) {
+                Storage::disk('public')->delete($metadata->website_logo_path);
                 $filePath = $request->file('website_logo_path')->store('logos', 'public');
                 $validated['website_logo_path'] = $filePath;
             } else {
