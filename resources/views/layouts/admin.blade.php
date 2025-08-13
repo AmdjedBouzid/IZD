@@ -59,9 +59,9 @@
               {{ request()->is('admin/Offre*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Offre De Service
                 </a>
-                <a href="/admin/contacts"
+                <a href="{{ route('contacts.index') }}"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
-              {{ request()->is('admin/contacts*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+              {{ str_starts_with(request()->url(), route('contacts.index')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Contacts
                 </a>
                 <a href="{{ route('profile') }}"

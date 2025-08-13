@@ -12,8 +12,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        $metadata = Metadata::first();
-        return view('companies.index', ['companies'=>$companies, 'metadata' => $metadata]);
+        return view('companies', ['companies'=>$companies]);
     }
 
 

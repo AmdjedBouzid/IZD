@@ -24,14 +24,7 @@ class MessageController extends Controller
         }
     }
 
-    /**
-     * Show form to create a message.
-     */
-    public function create()
-    {
-        return view('messages.create');
-    }
-
+   
     /**
      * Store a new message.
      */

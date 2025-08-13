@@ -24,13 +24,15 @@
     <nav class="w-full fixed z-50 bg-white text-black shadow">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-8 h-16">
             <div class="font-bold text-2xl tracking-wide cursor-pointer">
-                @if (isset($metadata))
-                <img
-                    id="logo-preview"
-                    src="{{ Storage::url($metadata->website_logo_path) }}"
-                    alt="Logo preview"
-                    class="w-20 h-20" />
-                @endif
+                <div class="flex items-center">
+                    @if (isset($metadata))
+                        <img
+                            id="logo-preview"
+                            src="{{ Storage::url($metadata->website_logo_path) }}"
+                            alt="Logo preview"
+                            class="h-12 w-auto object-contain" />
+                    @endif
+                </div>
             </div>
 
             {{-- Desktop Links --}}

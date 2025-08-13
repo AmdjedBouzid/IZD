@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BannerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
@@ -9,8 +8,6 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MetadataController;
-use App\Models\Banner;
-use App\Models\Metadata;
 use Illuminate\Http\Request;
 
 require __DIR__.'/auth.php';
@@ -23,11 +20,8 @@ Route::middleware('auth')->group(function () {
     
     Route::prefix('admin')->group(function () {
         
-        Route::get('/', function () {
-            return view('admin');
-        })->name('admin');
+        Route::redirect('/', '/admin/banners&metadata');
         
-        // ! For banners metadata
         Route::get('/banners&metadata', [BannerController::class, 'index'])->name('banners&metadata');
 
         Route::resource('messages', MessageController::class)->only(['index', 'destroy']);
@@ -36,10 +30,11 @@ Route::middleware('auth')->group(function () {
         
         Route::resource('companies', CompanyController::class)->except(['show', 'create', 'edit']);
 
+        Route::resource('contacts', ContactController::class)->except(['show']);    
+
         Route::get('/profile', function (Request $request) {
             return view('resetPassword',compact('request') );
         })->name('profile');
-
 
     });
     
@@ -47,18 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('banners', BannerController::class)->only(['store']);
     Route::post('/banners/delete-multiple', [BannerController::class, 'deleteMultiple'])->name('banners.deleteMultiple');
 
-    
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    
-    
-    
-
-    Route::resource('contacts', ContactController::class)->except(['show']);
-    
 
 });
 

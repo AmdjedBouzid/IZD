@@ -41,98 +41,65 @@
 
 <section class="w-full py-20 bg-gray-50" id="services">
     <div class="max-w-6xl mx-auto px-2 sm:px-4">
-        <!-- Title -->
-        <h2 class="text-3xl font-bold text-center text-[var(--color-primary)] mb-4">
-            Nos Services
-        </h2>
-        <p class="text-center text-gray-600 mb-10">
-            Choisissez une catégorie pour découvrir nos services spécialisés.
-        </p>
+            <!-- Title -->
+            <h2 class="text-3xl font-bold text-center text-[var(--color-primary)] mb-4">
+                Nos Services
+            </h2>
+            <p class="text-center text-gray-600 mb-10">
+                Choisissez une catégorie pour découvrir nos services spécialisés.
+            </p>
 
-        <!-- Category Filter -->
-        <div class="flex flex-wrap gap-4 mb-8 justify-center w-full">
-            <!-- IZDTECH -->
+            <!-- Category Filter -->
+        <div id="companyTabs" class="flex flex-wrap gap-4 mb-8 justify-center w-full">
             @foreach($companies as $company)
-            <button
-                class="px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden flex items-center gap-2 bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-[0_0_10px_var(--color-primary)] animate-primary-glow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M6.827 6.175A4.992 4.992 0 0 1 12 4.5c1.418 0 2.691.586 3.584 1.528M17.657 16.657A8 8 0 1 0 6.343 6.343a8 8 0 0 0 11.314 11.314z" />
-                </svg>
-                {{ $company->name }}
-            </button>
+                <button data-company="{{ $company->id }}"
+                    class="company-btn px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden flex items-center gap-2 bg-blue-500 text-white border-blue-500 shadow-md opacity-40 hover:opacity-70">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6.827 6.175A4.992 4.992 0 0 1 12 4.5c1.418 0 2.691.586 3.584 1.528M17.657 16.657A8 8 0 1 0 6.343 6.343a8 8 0 0 0 11.314 11.314z" />
+                    </svg>
+                    {{ $company->name }}
+                </button>
             @endforeach
-
-            <!-- IZDFIRE -->
-            {{-- <button
-                class="relative flex items-center gap-2 px-6 py-2 rounded-full font-semibold border transition-all duration-300 overflow-hidden bg-red-600 text-white border-red-600 shadow-[0_0_10px_rgba(255,0,0,0.8)] animate-fire-glow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 24 24" class="w-4 h-4">
-                    <path d="M12 2C10 5 7 8.5 7 13a5 5 0 1 0 10 0c0-4.5-3-8-5-11z" />
-                </svg>
-                IZDFIRE
-            </button> --}}
         </div>
 
         <!-- Services Grid -->
-        @if( $services->isNotEmpty() )
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <!-- Fire Service Card -->
+        @if($services->isNotEmpty())
+        <div id="servicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 justify-items-center">
             @foreach($services as $service)
-            <div
-                class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
-                <div
-                    class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-tr from-red-600 via-white to-red-500 ring-4 ring-red-400 animate-fire-glow">
-                    @if($service->image_path)
-                    <img src="{{ asset('storage/' . $service->image_path) }}"
-                        class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                    @endif
+                <div class="service-card bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer"
+                    data-company="{{ $service->company_id }}">
+                    
+                    <div class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-gradient-to-tr from-blue-600 via-white to-blue-500 ring-4 ring-blue-400">
+                        @if($service->image_path)
+                            <img src="{{ asset('storage/' . $service->image_path) }}"
+                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                        @endif
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mb-1">{{ $service->title }}</h3>
+                    <p class="text-gray-500 text-sm leading-snug">{{ $service->description }}</p>
+                    <a href="#"
+                        class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 shadow-blue-500">
+                        Details
+                    </a>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">
-                    {{ $service->title }}
-                </h3>
-                <p class="text-gray-500 text-sm leading-snug">
-                    {{ $service->description }}
-                </p>
-                <a href="#"
-                    class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-red-600 text-white hover:bg-red-700 shadow-red-500">
-                    Details
-                </a>
-            </div>
             @endforeach
-
-            {{-- <!-- Tech Service Card -->
-                <div
-                class="bg-white w-full max-w-sm rounded-xl shadow-md hover:shadow-lg duration-300 p-4 flex flex-col items-center text-center border border-gray-100 hover:-translate-y-1 transform transition-transform cursor-pointer">
-                <div
-                class="w-full h-40 mb-4 rounded-xl overflow-hidden flex items-center justify-center bg-[var(--color-primary)] ring-4 ring-[var(--color-primary)] animate-primary-glow">
-                    <img src="https://via.placeholder.com/300x200" alt="Tech Service"
-                        class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">
-                    IZDTECH Solutions
-                </h3>
-                <p class="text-gray-500 text-sm leading-snug">
-                    Innovative technology solutions tailored for modern businesses.
-                </p>
-                <a href="#"
-                    class="mt-3 px-3 py-1.5 rounded-md shadow-sm transition duration-200 text-xs font-medium bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)] shadow-[var(--color-primary)]">
-                    Details
-                </a>
-            </div> --}}
         </div>
-
-        <!-- Pagination -->
-        <div class="flex justify-center mt-8 gap-2">
-            <button class="px-3 py-1 border rounded hover:bg-gray-100">Précédent</button>
-            <button class="px-3 py-1 border rounded hover:bg-gray-100">Suivant</button>
-        </div>
-
         @endif
 
-    </div>
-</section>
+
+                <!-- Pagination -->
+                <div class="flex justify-center mt-8 gap-2">
+                    <button class="px-3 py-1 border rounded hover:bg-gray-100">Précédent</button>
+                    <button class="px-3 py-1 border rounded hover:bg-gray-100">Suivant</button>
+                </div>
+
+                {{-- @endif --}}
+
+        </div>
+    </section>
 
 @endif
 
@@ -162,6 +129,7 @@
                     <i class="fi fi-mail text-[var(--color-primary)]"></i> Email ou Téléphone
                 </label>
                 <input
+                required
                     name="from" value="{{ old('from') }}"
                     type="text"
                     id="emailOrPhone"
@@ -176,6 +144,7 @@
                     <i class="fi fi-edit-2 text-[var(--color-primary)]"></i> Sujet
                 </label>
                 <input
+                required
                     name="object" value="{{ old('object') }}"
                     type="text"
                     id="subject"
@@ -191,6 +160,7 @@
                     <i class="fi fi-message-circle text-[var(--color-primary)]"></i> Message
                 </label>
                 <textarea
+                required
                     name="content"
                     id="content"
                     rows="5"
@@ -389,5 +359,28 @@
         currentIndex = (currentIndex + 1) % images.length;
         bannerImage.src = images[currentIndex];
     }, 5000);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const buttons = document.querySelectorAll(".company-btn");
+        const cards = document.querySelectorAll(".service-card");
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                buttons.forEach(b => b.classList.remove("opacity-100", "shadow-lg"));
+                buttons.forEach(b => b.classList.add("opacity-40"));
+                
+                btn.classList.remove("opacity-40");
+                btn.classList.add("opacity-100", "shadow-lg");
+
+                const companyId = btn.getAttribute("data-company");
+                cards.forEach(card => {
+                    card.style.display = card.getAttribute("data-company") === companyId ? "block" : "none";
+                });
+            });
+        });
+
+        if (buttons.length) buttons[0].click();
+    });
 </script>
+
 @endsection
