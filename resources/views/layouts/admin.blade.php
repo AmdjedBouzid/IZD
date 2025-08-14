@@ -54,9 +54,9 @@
               {{ str_starts_with(request()->url(), route('messages.index')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Messages
                 </a>
-                <a href="/admin/Offre"
+                <a href="{{ route('offer-images.index') }}"
                     class="flex items-center gap-3 px-4 py-2 rounded-lg
-              {{ request()->is('admin/Offre*') ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
+              {{ str_starts_with(request()->url(), route('offer-images.index')) ? 'bg-gray-200 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">
                     Offre De Service
                 </a>
                 <a href="{{ route('contacts.index') }}"
@@ -74,7 +74,7 @@
 
             {{-- Visit Site --}}
             <div class="mt-auto">
-                <a href="/" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl shadow">
+                <a href="{{ route('landing') }}" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-xl shadow">
                     🌐 Consulter votre Site Web
                 </a>
             </div>

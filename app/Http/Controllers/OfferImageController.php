@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\OfferImage;
 use App\Models\OfferCategory;
+use App\Models\FooterColor;
 
 class OfferImageController extends Controller
 {
@@ -160,6 +161,7 @@ class OfferImageController extends Controller
         }
 
         return view('offerclient', [
+            'footerColors' => FooterColor::first(),
             'categories' => $categories,
             'images' => $images,
             'selectedCategoryId' => $categoryId,

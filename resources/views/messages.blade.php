@@ -2,8 +2,8 @@
 @section('title', 'Messages')
 @section('content')
 
-<div class="container mx-auto px-4 mt-8 max-w-5xl">
-    <h1 class="text-2xl font-bold mb-6">Messages</h1>
+<div class="p-8 space-y-10 bg-white rounded-xl shadow-md max-sm:p-0">
+    <h1 class="text-3xl font-bold text-primary">Messages</h1>
 
     @forelse ($messages as $msg)
     @component('components.messages.message', ['message' => $msg])

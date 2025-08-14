@@ -54,7 +54,7 @@
     @method('PUT')
 
 
-    <div class="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto mt-6 space-y-6">
+    <div class="bg-white p-6 mx-auto mt-6 space-y-6">
 
         
         <div>
@@ -86,10 +86,13 @@
                 accept="image/*"
                 class="hidden"
                 onchange="previewLogo(event)" />
-            
+
             @error('website_logo_path')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
+            <p id="save-hint" class="hidden text-yellow-600 text-sm mt-2">
+                💡 N'oubliez pas de cliquer sur <strong>Sauvegarder</strong> pour appliquer votre nouveau logo.
+            </p>
         </div>
 
         {{-- Nom du site Web input --}}
@@ -286,7 +289,17 @@
         });
     });
 
-    
+    function previewLogo(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('logo-preview').src = e.target.result;
+            document.getElementById('save-hint').classList.remove('hidden'); // Show the hint
+        };
+        reader.readAsDataURL(file);
+    }
 
 </script>
 @endsection

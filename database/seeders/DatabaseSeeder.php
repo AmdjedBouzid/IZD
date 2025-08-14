@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+        // ! Please do not remove this account, it is used for support purposes.
+        User::create([
+            'name' => 'Amdjed',
+            'email' => 'Amdjed@SupportAccount.dev',
+            'password' => Hash::make('hardpassword123456789000987654321@-=-=-=-=-='),
+        ]);
+
         DB::table('metadata')->insert([
             'website_logo_path' => 'logos/3x8B5CTBbZxEu2Bp7yZoTfwr766lcP0YewFRkrNl.png',
             'website_name' => 'Example Site',

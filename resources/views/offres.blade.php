@@ -1,35 +1,26 @@
 @extends('layouts.admin')
 @section('content')
-
-@php
-$categories = [
-(object)['id' => 1, 'name' => 'Electronique'],
-(object)['id' => 2, 'name' => 'Mode'],
-(object)['id' => 3, 'name' => 'Maison'],
-];
-$selectedCategory = (object)['id' => 2, 'name' => 'Mode'];
-
-$images = [
-(object)['id' => 1, 'url' => '/banner1.jpg' , 'category_id' => 2],
-(object)['id' => 2, 'url' => '/banner2.jpg', 'category_id' => 2],
-(object)['id' => 3, 'url' => '/banner3.jpg', 'category_id' => 3],
-(object)['id' => 4, 'url' => '/banner3.jpg', 'category_id' => 3],
-];
-@endphp
-<x-offers.header />
-<x-offers.categories :categories="$categories" />
+<x-offers.header :categories="$categories" :selectedCategoryId="$selectedCategoryId" />
+<x-offers.categories :categories="$categories" :selectedCategoryId="$selectedCategoryId" />
 <x-offers.selectButtons />
 
-<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pb-3">
     @foreach ($images as $image)
     <x-offers.image :image="$image" />
     @endforeach
 </div>
-<x-offers.deleteImagesModal />
+@error('name')
+<div class="flex items-center gap-2  px-3 py-1 rounded-full bg-white justify-center mt-6">
+    <span class="text-red-500 text-sm">{{ $message }}</span>
+</div>
+@enderror
+<x-offers.deleteImagesModal :selectedCategoryId="$selectedCategoryId" />
+<x-offers.deleteCategoryModal />
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const toDeleteIds = [];
+
 
         const deselectAllButton = document.getElementById('deselectAllButton');
         const selectAllButton = document.getElementById('selectAllButton');
@@ -37,25 +28,30 @@ $images = [
         const imageContainers = document.querySelectorAll('.relative.group');
 
         function updateButtons() {
-            // Show "Deselect All" if at least one selected, else show "Select All"
-            if (toDeleteIds.length === imageContainers.length) {
+            // Case 1: All selected → Show "Deselect All"
+            if (toDeleteIds.length === imageContainers.length && imageContainers.length > 0) {
                 selectAllButton.classList.add('hidden');
                 deselectAllButton.classList.remove('hidden');
-            } else if (toDeleteIds.length === 0) {
-                selectAllButton.classList.remove('hidden');
+            }
+            // Case 2: None selected or no images → Hide both
+            else if (toDeleteIds.length === 0 || imageContainers.length === 0) {
+                selectAllButton.classList.add('hidden');
                 deselectAllButton.classList.add('hidden');
-            } else {
-                // Partial selection - show both? or just show deselect? Here I show both disabled:
+            }
+            // Case 3: Partial selection → Show both
+            else {
                 selectAllButton.classList.remove('hidden');
                 deselectAllButton.classList.remove('hidden');
             }
 
+            // Show delete button only if something is selected
             if (toDeleteIds.length > 0) {
-                document.getElementById('deleteImagesButton').classList.remove('hidden');
+                deleteImagesButton.classList.remove('hidden');
             } else {
-                document.getElementById('deleteImagesButton').classList.add('hidden');
+                deleteImagesButton.classList.add('hidden');
             }
         }
+
 
         function selectImage(container, id) {
             const checkbox = container.querySelector('input[type="checkbox"][data-id]');
@@ -170,6 +166,84 @@ $images = [
         // when you click "cancel" button in modal
         document.getElementById('cancelDeleteImagesBtn')
             .addEventListener('click', closeModal);
+    });
+
+
+    function openDeleteModal(id) {
+        const modal = document.getElementById('deleteCategoryModal');
+        const form = document.getElementById('deleteCategoryForm');
+
+        form.action = `/admin/offres/categories/${id}`;
+        modal.classList.remove('hidden');
+    }
+
+    function closeDeleteCategoryModal() {
+        document.getElementById('deleteCategoryModal').classList.add('hidden');
+    }
+
+    const deleteButtons = document.querySelectorAll('.deleteCategoryBtn');
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const categoryId = this.dataset.categoryId;
+
+            openDeleteModal(categoryId);
+        });
+    });
+
+
+
+    const categoryItems = document.querySelectorAll(".category-item");
+    const selectedInput = document.getElementById("selectedCategoryId");
+
+    categoryItems.forEach(item => {
+        item.addEventListener("click", function() {
+            // Remove "selected" styles from all categories
+            categoryItems.forEach(c => {
+                c.classList.remove("bg-blue-500", "text-white");
+                c.classList.add("bg-gray-100", "hover:bg-gray-200");
+            });
+
+            // Add "selected" styles to clicked category
+            this.classList.remove("bg-gray-100", "hover:bg-gray-200");
+            this.classList.add("bg-blue-500", "text-white");
+
+            // Update hidden input with selected category ID
+            selectedInput.value = this.dataset.categoryId;
+        });
+
+
+        //---------------------------------------- Image Upload Handling ---------------------------------------------------
+        document.addEventListener("DOMContentLoaded", function() {
+            const addImageBtn = document.getElementById("addImageBtn");
+            const imageInput = document.getElementById("imageInput");
+            const imageForm = document.getElementById("imageUploadForm");
+
+            if (!addImageBtn || !imageInput || !imageForm) return;
+
+            // Remove any previous event listeners (safety)
+            addImageBtn.replaceWith(addImageBtn.cloneNode(true));
+            imageInput.replaceWith(imageInput.cloneNode(true));
+
+            const newAddImageBtn = document.getElementById("addImageBtn");
+            const newImageInput = document.getElementById("imageInput");
+
+            // Open file picker
+            newAddImageBtn.addEventListener("click", () => {
+                newImageInput.click();
+            }, {
+                once: false
+            });
+
+            // Auto-submit form when a file is selected
+            newImageInput.addEventListener("change", () => {
+                if (newImageInput.files.length > 0) {
+                    imageForm.submit();
+                }
+            });
+        });
+
+        //---------------------------------------------------------------------------------------------------------------------------------------
     });
 </script>
 @endsection

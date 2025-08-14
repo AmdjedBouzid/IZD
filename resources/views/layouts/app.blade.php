@@ -41,11 +41,13 @@
             <div class="font-bold text-2xl tracking-wide cursor-pointer">
                 <div class="flex items-center">
                     @if (isset($metadata))
-                        <img
-                            id="logo-preview"
-                            src="{{ Storage::url($metadata->website_logo_path) }}"
-                            alt="Logo preview"
-                            class="h-12 w-auto object-contain" />
+                        <a href="{{ route('landing') }}">
+                            <img
+                                id="logo-preview"
+                                src="{{ Storage::url($metadata->website_logo_path) }}"
+                                alt="Logo preview"
+                                class="h-12 w-auto object-contain" />
+                        </a> 
                     @endif
                 </div>
             </div>

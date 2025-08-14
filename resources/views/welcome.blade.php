@@ -40,15 +40,15 @@
         @if( $services->isNotEmpty() )
         <div class="flex gap-4">
             <a class="px-8 py-3 rounded-md bg-[var(--color-primary)] text-white font-semibold shadow-md hover:bg-white hover:text-[var(--color-primary)] transition-colors duration-200"
-                href="#services">
-                Nos services 
-            </a>
-            <a href="/works"
+            href="#services">
+            Nos services 
+        </a>
+        @endif
+            <a href="{{ route('offer.images.index.client') }}"
                 class="px-8 py-3 rounded-md bg-white text-[var(--color-primary)] font-semibold shadow-md hover:bg-[var(--color-primary)] hover:text-white transition-colors duration-200 cursor-pointer">
                 Offre De Service
             </a>
         </div>
-        @endif
     </div>
 </section>
 
@@ -249,7 +249,7 @@
             {{-- Button --}}
             @if( $services->isNotEmpty() )
             <div class="mt-4">
-                <a href="#"
+                <a href="{{ route('offer.images.index.client') }}"
                     class="inline-block px-6 py-2 rounded-md bg-white/10 text-[var(--footer-items-color)] font-medium shadow-md hover:bg-white/20 transition-all duration-200">
                     Offre De Service
                 </a>

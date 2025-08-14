@@ -7,10 +7,11 @@
             Êtes-vous sûr de vouloir supprimer ces images ?
         </p>
 
-        <form id="deleteForm" method="POST">
+        <form id="deleteForm" method="POST" action="{{ route('offer-images.delete-multiple') }}">
             @csrf
             @method('DELETE')
             <input type="hidden" name="ids" id="idsInput">
+            <input type="hidden" name="category_id" id="categoryIdInput" value="{{ $selectedCategoryId }}">
 
             <div class="flex justify-between gap-4">
                 <button type="button"
@@ -18,7 +19,7 @@
                     class="flex-1 py-2 rounded-md bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold">
                     Annuler
                 </button>
-                <button type="submit"
+                <button id="deleteImagesBtn" type="submit"
                     class="flex-1 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white font-semibold">
                     Supprimer
                 </button>
