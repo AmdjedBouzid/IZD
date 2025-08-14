@@ -10,6 +10,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MetadataController;
 use App\Http\Controllers\OfferCategoryController;
 use App\Http\Controllers\OfferImageController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
 
 require __DIR__.'/auth.php';
@@ -19,7 +20,6 @@ Route::get('/works', [OfferImageController::class, 'indexClient'])->name('offer.
 Route::post('/sendmessage', [MessageController::class, 'store'])->name('send-message');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
-
         
         Route::redirect('/', '/admin/banners&metadata')->name('admin');
         
@@ -52,4 +52,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::delete('/offres/delete-multiple', [OfferImageController::class, 'deleteMultiple'])
             ->name('offer-images.delete-multiple');
         
+        Route::get('register', [RegisteredUserController::class, 'create'])
+            ->name('register');
+        Route::post('register', [RegisteredUserController::class, 'store']);
+
 });
