@@ -7,6 +7,7 @@ use App\Models\Metadata;
 use App\Models\Banner;
 use App\Models\Service;
 use App\Models\Contact;
+use App\Models\FooterColor;
 
 class LandingPageController extends Controller
 {
@@ -21,6 +22,7 @@ class LandingPageController extends Controller
             });
 
         return view('welcome', [
+            'footerColors' => FooterColor::first(),
             'companies' => Company::all(),
             'metadata' => Metadata::first(),
             'banners' => Banner::all(),

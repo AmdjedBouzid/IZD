@@ -12,6 +12,17 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
     <style>
+        :root {
+            --footer-color-primary: {{ $footerColors->primary }};
+            --footer-color-secondary: {{ $footerColors->secondary }};
+            --footer-items-color: {{ $footerColors->items ?? '#ffffff' }};
+        }
+     
+        .dynamic-icon {
+            font-size: 24px;
+            color: var(--footer-items-color);
+        }
+
         .mobile-menu {
             display: none;
         }

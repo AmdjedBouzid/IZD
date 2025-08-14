@@ -169,7 +169,7 @@
 @if( $contacts->isNotEmpty() )
 
 <footer
-    class="w-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] text-white pt-16 pb-8 mt-16"
+    class="w-full bg-gradient-to-br from-[var(--footer-color-primary)] to-[var(--footer-color-secondary)] text-[var(--footer-items-color)] pt-16 pb-8 mt-16"
     id="info">
 
     <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
@@ -179,22 +179,22 @@
 
             {{-- Logo --}}
             <div>
-                <span class="text-3xl font-extrabold tracking-wide text-white">
+                <span class="text-3xl font-extrabold tracking-wide text-[var(--footer-items-color)]">
                     {{ $metadata->website_name }}
                 </span>
             </div>
 
             {{-- Contact Info --}}
-            <div class="flex flex-col gap-3 text-white/80 text-sm">
+            <div class="flex flex-col gap-3 text-[var(--footer-items-color)]/80 text-sm">
                 @if( isset($contacts['email']) )
                 @foreach($contacts['email'] as $email)
                 <div class="flex items-start gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center text-white">
-                        📧
+                    <span class="w-6 h-6 flex items-center justify-center text-[var(--footer-items-color)]">
+                        {!! $contactIcons["email"] !!}
                     </span>
                     <div>
-                        <p class="font-semibold">{{ ucfirst($email->name) }}</p>
-                        <p>{{ $email->value }}</p>
+                        <p class="font-semibold text-[var(--footer-items-color)]">{{ ucfirst($email->name) }}</p>
+                        <p class="text-[var(--footer-items-color)]">{{ $email->value }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -203,12 +203,12 @@
                 @if( isset($contacts['phone']) )
                 @foreach($contacts['phone'] as $phone)
                 <div class="flex items-start gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center text-white">
-                        📞
+                    <span class="w-6 h-6 flex items-center justify-center text-[var(--footer-items-color)]">
+                        {!! $contactIcons["phone"] !!}
                     </span>
                     <div>
-                        <p class="font-semibold"> {{ ucfirst($phone->name) }}</p>
-                        <p>{{ $phone->value }}</p>
+                        <p class="font-semibold text-[var(--footer-items-color)]"> {{ ucfirst($phone->name) }}</p>
+                        <p class="text-[var(--footer-items-color)]" >{{ $phone->value }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -217,12 +217,12 @@
                 @if( isset($contacts['location']) )
                 @foreach($contacts['location'] as $location)
                 <div class="flex items-start gap-3">
-                    <span class="w-6 h-6 flex items-center justify-center text-white">
-                        📍
+                    <span class="w-6 h-6 flex items-center justify-center text-[var(--footer-items-color)]">
+                        {!! $contactIcons["location"] !!}
                     </span>
                     <div>
-                        <p class="font-semibold">{{ ucfirst($location->name) }}</p>
-                        <p>{{ ucfirst($location->value) }}</p>
+                        <p class="font-semibold text-[var(--footer-items-color)]">{{ ucfirst($location->name) }}</p>
+                        <p class="text-[var(--footer-items-color)]" >{{ ucfirst($location->value) }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -230,19 +230,17 @@
             </div>
 
             {{-- Social Media --}}
-            <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center mt-4">
+            <div class="flex flex-wrap gap-4 mt-4">
                 @foreach ($contacts as $name => $values)
-                    @if($name != 'email' && $name != 'phone' && $name != 'location')
-                        @foreach ($values as $value)
-                            <a href="{{ $value->value }}"
-                            class="w-20 h-20 flex flex-col items-center justify-center gap-2 rounded-lg bg-white/10 text-white transition-transform hover:-translate-y-1 hover:scale-110 hover:bg-white/20">
-                                <div class="text-4xl">
-                                    {!! $contactIcons[$name] !!}
-                                </div>
-                                <span class="text-white/80 text-[10px] text-center truncate w-full px-1">
-                                    {{ $value->name }}
-                                </span>
-                            </a>
+                @if($name != 'email' && $name != 'phone' && $name != 'location')
+                @foreach ($values as $value)
+                <a href="{{ $value->value }}"
+                        class="flex flex-col items-center gap-1 w-24 transition-transform hover:-translate-y-1 hover:scale-110">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-[var(--footer-items-color)] hover:bg-white/20">
+                            {!! $contactIcons[$name] !!}
+                        </div>
+                        <span class="text-[var(--footer-items-color)]/80 text-xs text-center">{{ $value->name }}</span>
+                    </a>
                         @endforeach
                     @endif
                 @endforeach
@@ -252,7 +250,7 @@
             @if( $services->isNotEmpty() )
             <div class="mt-4">
                 <a href="#"
-                    class="inline-block px-6 py-2 rounded-md bg-white/10 text-white font-medium shadow-md hover:bg-white/20 transition-all duration-200">
+                    class="inline-block px-6 py-2 rounded-md bg-white/10 text-[var(--footer-items-color)] font-medium shadow-md hover:bg-white/20 transition-all duration-200">
                     Offre De Service
                 </a>
             </div>
@@ -262,8 +260,8 @@
         {{-- Map Section --}}
         @if( isset($contacts['location']) && $contacts['location']->isNotEmpty() )
         <div class="w-full h-96 rounded-xl overflow-hidden shadow-md flex flex-col gap-3">
-            <div class="text-white flex items-center gap-2">
-                <span>📍</span>
+            <div class="text-[var(--footer-items-color)] flex items-center gap-2">
+                <span>{!! $contactIcons["location"] !!}</span>
                 <span>{{ $contacts['location'][0]->name }}</span>
             </div>
             <iframe
@@ -283,33 +281,34 @@
 </footer>
 @endif
 
-<footer class="w-full bg-[var(--color-primary)] text-white py-4 border-t border-[var(--color-secondary)]">
+<footer class="w-full bg-[var(--footer-color-primary)] text-[var(--footer-items-color)] py-4 border-t border-[var(--footer-color-secondary)]">
     <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-xs md:text-sm gap-2 md:gap-0">
 
         {{-- Phone --}}
         <div class="flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[var(--footer-items-color)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.129a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.492 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            <span class="text-white">+213 555 000 111</span>
+            <span class="text-[var(--footer-items-color)]">+213 555 000 111</span>
         </div>
 
         {{-- Copyright --}}
-        <div class="flex items-center gap-2 text-white flex-wrap justify-center text-center">
+        <div class="flex items-center gap-2 text-[var(--footer-items-color)] flex-wrap justify-center text-center">
             <div class="flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[var(--footer-items-color)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 20.5A8.5 8.5 0 1 0 12 3.5a8.5 8.5 0 0 0 0 17Zm0 0a5 5 0 1 1 0-10" />
                 </svg>
-                <span>{{ date('Y') }} TechNova. Tous droits réservés.</span>
+                <span class="text-[var(--footer-items-color)]">{{ date('Y') }} TechNova. Tous droits réservés.</span>
             </div>
             <span class="hidden md:inline">|</span>
-            <span>Réalisé par Nova Studio</span>
+            <span class="text-[var(--footer-items-color)]">Réalisé par Nova Studio</span>
         </div>
 
     </div>
 </footer>
+
 
 
 {{-- JS for company buttons & cards --}}

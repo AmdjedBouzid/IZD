@@ -64,6 +64,28 @@ return new class extends Migration
             $table->string('name');
         });
 
+        Schema::create('footer_colors', function (Blueprint $table) {
+            $table->id();
+            $table->string('primary')->default('#3b2ed0');
+            $table->string('secondary')->default('#4ed0fc');
+            $table->string('items')->default('#FFFFFF');
+        });
+
+         Schema::create('offer_categories', function (Blueprint $table) {
+            $table->id(); // id (primary key)
+            $table->string('name'); // category name
+            $table->timestamps();
+        });
+
+        Schema::create('offer_images', function (Blueprint $table) {
+            $table->id(); // id (primary key)
+            $table->string('image_path'); // image file path or URL
+            $table->foreignId('category_id')
+                ->constrained('offer_categories')
+                ->onDelete('cascade'); // linked category
+            $table->timestamps();
+        });
+
     }
 
 
@@ -78,5 +100,8 @@ return new class extends Migration
         Schema::dropIfExists('banners');
         Schema::dropIfExists('messages');
         Schema::dropIfExists('contacts');
+        Schema::dropIfExists('footer_colors');
+        Schema::dropIfExists('offer_categories');
+        Schema::dropIfExists('offer_images');
     }
 };

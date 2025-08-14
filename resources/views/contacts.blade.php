@@ -48,6 +48,42 @@
     </div>
 </section>
 
+{{-- Colors --}}
+<section class="p-8 space-y-10 bg-white rounded-xl shadow-md max-sm:p-0 mt-8">
+    <h2 class="text-3xl font-bold text-primary">Couleurs du pied de page</h2>
+
+    <div id="footerColorNote" class="p-3 mt-2 bg-blue-100 text-blue-800 text-sm rounded-md border border-blue-300">
+        💡 <strong>Astuce :</strong> Si vous souhaitez que le pied de page ait une couleur unie (sans dégradé),
+        définissez simplement la même couleur pour <strong>les deux</strong> champs de couleur (primaire et secondaire).
+    </div>
+
+
+    <form method="POST" action="{{ route('footer.colors.update') }}" class="space-y-6">
+        @csrf
+        <div>
+            <label class="block font-medium mb-1">Couleur primaire</label>
+            <input type="color" name="primary" value="{{ $colors->primary }}" class="w-16 h-10 cursor-pointer">
+        </div>
+
+        <div>
+            <label class="block font-medium mb-1">Couleur secondaire</label>
+            <input type="color" name="secondary" value="{{ $colors->secondary }}" class="w-16 h-10 cursor-pointer">
+        </div>
+
+        <div>
+            <label class="block font-medium mb-1">Couleur des éléments</label>
+            <input type="color" name="items" value="{{ $colors->items }}" class="w-16 h-10 cursor-pointer">
+        </div>
+
+        <div class="pt-4">
+            <button type="submit" class="px-6 py-2 rounded bg-primary text-white hover:bg-primary/90">
+                Save Colors
+            </button>
+        </div>
+    </form>
+</section>
+
+
 {{-- Modal Ajouter --}}
 
 <div id="addContactModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">

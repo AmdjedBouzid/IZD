@@ -10,7 +10,7 @@
         <h2 class="text-3xl font-bold text-primary">Services</h2>
         <button id="btnAddService"
             class="px-6 py-2 rounded-full bg-primary text-white hover:bg-primary/90 transition">
-            ➕ Add Service
+            ➕ Ajouter un service
         </button>
     </div>
 
@@ -18,7 +18,7 @@
     <div class="flex justify-end">
         <select id="companyFilter"
             class="border rounded px-4 py-2 text-sm bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary">
-            <option value="ALL">Toutes les sociétés</option>
+            <option value="ALL">Toutes les entreprise</option>
             @foreach ($companies as $company)
             <option value="{{ $company['id'] }}">{{ $company['name'] }}</option>
             @endforeach
@@ -30,8 +30,8 @@
         <table class="min-w-full text-sm text-left border-collapse">
             <thead class="bg-primary text-white text-sm uppercase tracking-wider">
                 <tr>
-                    <th class="p-4">Title</th>
-                    <th class="p-4">Company</th>
+                    <th class="p-4">Titre</th>
+                    <th class="p-4">Entreprise</th>
                     <th class="p-4">Description</th>
                     <th class="p-4">Image</th>
                     <th class="p-4 text-center">Actions</th>
@@ -55,10 +55,10 @@
                     <td class="p-4 align-top text-center">
                         <div class="flex justify-center items-center gap-2 flex-wrap">
                             <button class="btnUpdate px-4 py-1 rounded bg-primary text-white hover:bg-primary/90 transition">
-                                Update
+                                Mise à jour
                             </button>
                             <button class="btnDelete px-4 py-1 rounded bg-red-500 text-white hover:bg-red-600 transition">
-                                Delete
+                                Supprimer
                             </button>
                         </div>
                     </td>
@@ -74,15 +74,15 @@
 {{-- Add Modal --}}
 <div id="addServiceModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
-        <h3 class="text-xl font-bold mb-4">Add Service</h3>
+        <h3 class="text-xl font-bold mb-4">Ajouter un service</h3>
         <form class="space-y-4" id="addServiceForm" method="POST" action="" enctype="multipart/form-data">
             @csrf
             <div>
-                <label class="block text-sm font-medium mb-1">Title</label>
+                <label class="block text-sm font-medium mb-1">Titre</label>
                 <input type="text" name="title" class="border rounded px-3 py-2 w-full" required>
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1">Company</label>
+                <label class="block text-sm font-medium mb-1">Entreprise</label>
                 <select name="company_id" class="border rounded px-3 py-2 w-full" required>
                     @foreach ($companies as $company)
                     <option value="{{ $company['id'] }}">{{ $company['name'] }}</option>
@@ -99,10 +99,10 @@
             </div>
             <div class="flex justify-end gap-2 pt-4">
                 <button type="button" class="btnCloseModal px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">
-                    Cancel
+                    Annuler
                 </button>
                 <button type="submit" class="px-4 py-2 rounded bg-primary text-white hover:bg-primary/90">
-                    Save
+                    Sauvegarder
                 </button>
             </div>
         </form>
@@ -112,17 +112,17 @@
 {{-- Update Modal --}}
 <div id="updateServiceModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-y-auto p-6">
-        <h3 class="text-xl font-bold mb-4">Update Service</h3>
+        <h3 class="text-xl font-bold mb-4">Service de mise à jour</h3>
         <form id="updateServiceForm" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="updateServiceId">
             <div>
-                <label class="block text-sm font-medium mb-1">Title</label>
+                <label class="block text-sm font-medium mb-1">Titre</label>
                 <input type="text" name="title" id="updateServiceTitle" class="border rounded px-3 py-2 w-full" required>
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1">Company</label>
+                <label class="block text-sm font-medium mb-1">Entreprise</label>
                 <select name="company_id" id="updateServiceCompany" class="border rounded px-3 py-2 w-full" required>
                     @foreach ($companies as $company)
                     <option value="{{ $company['id'] }}">{{ $company['name'] }}</option>
@@ -140,10 +140,10 @@
             </div>
             <div class="flex justify-end gap-2 pt-4">
                 <button type="button" class="btnCloseModal px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">
-                    Cancel
+                    Annuler
                 </button>
                 <button type="submit" class="px-4 py-2 rounded bg-primary text-white hover:bg-primary/90">
-                    Update
+                    Mise à jour
                 </button>
             </div>
         </form>
@@ -153,17 +153,17 @@
 {{-- Delete Confirmation Modal --}}
 <div id="deleteModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-sm p-6">
-        <h3 class="text-lg font-bold mb-4">Confirm Delete</h3>
-        <p>Are you sure you want to delete this service?</p>
+        <h3 class="text-lg font-bold mb-4">Confirmer la suppression</h3>
+        <p>Êtes-vous sûr de vouloir supprimer ce service ?</p>
         <form id="deleteServiceForm" action="" method="POST" >
             @csrf
             @method('DELETE')
             <div class="flex justify-end gap-2 mt-4">
                 <button type="button" id="btnCloseDeleteModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">
-                    Cancel
+                    Annuler
                 </button>
                 <button type="submit" id="btnConfirmDelete" class="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600">
-                    Delete
+                    Supprimer
                 </button>
             </div>
         </form>

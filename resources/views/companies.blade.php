@@ -7,10 +7,10 @@
 
     {{-- Header --}}
     <div class="flex items-center justify-between">
-        <h2 class="text-3xl font-bold text-primary">Companies</h2>
+        <h2 class="text-3xl font-bold text-primary">Entreprises</h2>
         <button id="btnAddCompany"
             class="px-6 py-2 rounded-full bg-primary text-white hover:bg-primary/90 transition">
-            ➕ Add Company
+            ➕ Ajouter une entreprise
         </button>
     </div>
 
@@ -19,7 +19,7 @@
         <table class="min-w-full text-sm text-left border-collapse">
             <thead class="bg-primary text-white text-sm uppercase tracking-wider">
                 <tr>
-                    <th class="p-4">Name</th>
+                    <th class="p-4">Nom</th>
                     <th class="p-4 text-center">Actions</th>
                 </tr>
             </thead>
@@ -30,10 +30,10 @@
                     <td class="p-4 align-top text-center">
                         <div class="flex justify-center items-center gap-2 flex-wrap">
                             <button class="btnUpdate px-4 py-1 rounded bg-primary text-white hover:bg-primary/90 transition">
-                                Update
+                                Mettre à jour
                             </button>
                             <button class="btnDelete px-4 py-1 rounded bg-red-500 text-white hover:bg-red-600 transition">
-                                Delete
+                                Supprimer
                             </button>
                         </div>
                     </td>
@@ -47,19 +47,19 @@
 {{-- Add Modal --}}
 <div id="addCompanyModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto p-6">
-        <h3 class="text-xl font-bold mb-4">Add Company</h3>
+        <h3 class="text-xl font-bold mb-4">Ajouter une entreprise</h3>
         <form class="space-y-4" id="addCompanyForm" method="POST" action="{{ route('companies.store') }}">
             @csrf
             <div>
-                <label class="block text-sm font-medium mb-1">Name</label>
+                <label class="block text-sm font-medium mb-1">Nom</label>
                 <input type="text" name="name" class="border rounded px-3 py-2 w-full" required>
             </div>
             <div class="flex justify-end gap-2 pt-4">
                 <button type="button" class="btnCloseModal px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">
-                    Cancel
+                    Annuler
                 </button>
                 <button type="submit" class="px-4 py-2 rounded bg-primary text-white hover:bg-primary/90">
-                    Save
+                    Sauvegarder
                 </button>
             </div>
         </form>
@@ -69,21 +69,21 @@
 {{-- Update Modal --}}
 <div id="updateCompanyModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto p-6">
-        <h3 class="text-xl font-bold mb-4">Update Company</h3>
+        <h3 class="text-xl font-bold mb-4">Mise à jour de l'entreprise</h3>
         <form id="updateCompanyForm" method="POST" class="space-y-4">
             @csrf
             @method('PUT')
             <input type="hidden" name="id" id="updateCompanyId">
             <div>
-                <label class="block text-sm font-medium mb-1">Name</label>
+                <label class="block text-sm font-medium mb-1">Nom</label>
                 <input type="text" name="name" id="updateCompanyName" class="border rounded px-3 py-2 w-full" required>
             </div>
             <div class="flex justify-end gap-2 pt-4">
                 <button type="button" class="btnCloseModal px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">
-                    Cancel
+                    Annuler
                 </button>
                 <button type="submit" class="px-4 py-2 rounded bg-primary text-white hover:bg-primary/90">
-                    Update
+                    Mise à jour
                 </button>
             </div>
         </form>
@@ -93,17 +93,17 @@
 {{-- Delete Confirmation Modal --}}
 <div id="deleteModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-sm p-6">
-        <h3 class="text-lg font-bold mb-4">Confirm Delete</h3>
-        <p>Are you sure you want to delete this company?</p>
+        <h3 class="text-lg font-bold mb-4">Confirmer la suppression</h3>
+        <p>Êtes-vous sûr de vouloir supprimer cette entreprise ?</p>
         <form id="deleteCompanyForm" action="" method="POST">
             @csrf
             @method('DELETE')
             <div class="flex justify-end gap-2 mt-4">
                 <button type="button" id="btnCloseDeleteModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">
-                    Cancel
+                    Annuler
                 </button>
                 <button type="submit" class="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600">
-                    Delete
+                    Supprimer
                 </button>
             </div>
         </form>

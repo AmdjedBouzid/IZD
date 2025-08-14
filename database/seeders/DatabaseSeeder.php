@@ -20,5 +20,10 @@ class DatabaseSeeder extends Seeder
             'huge_title' => 'Welcome to Example Site',
             'description' => 'This is a sample description for the Example Site.',
         ]);
+        DB::table('footer_colors')->insert([
+            'primary' => '#3b2ed0',
+            'secondary' => '#4ed0fc',
+            'items' => '#FFFFFF',
+        ]);
     }
 }
