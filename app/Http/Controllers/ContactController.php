@@ -11,12 +11,7 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('contacts.index', compact('contacts'));
-    }
-
-    public function create()
-    {
-        return view('contacts.create');
+        return view('contacts', compact('contacts'));
     }
 
     public function store(Request $request)
@@ -41,16 +36,6 @@ class ContactController extends Controller
                 ->withInput()
                 ->withErrors(['general' => 'Something went wrong while creating the contact.']);
         }
-    }
-
-    public function show(Contact $contact)
-    {
-        return view('contacts.show', compact('contact'));
-    }
-    
-    public function edit(Contact $contact)
-    {
-        return view('contacts.edit', compact('contact'));
     }
 
     public function update(Request $request, Contact $contact)

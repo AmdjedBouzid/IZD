@@ -7,6 +7,10 @@
     <title>@yield('title', '{{ $metadata->website_name }}')</title>
     @vite('resources/css/app.css')
     <link rel="icon" href="{{ Storage::url($metadata->website_logo_path) }}" type="image/png">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
     <style>
         .mobile-menu {
             display: none;

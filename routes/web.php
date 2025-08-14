@@ -9,16 +9,23 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MetadataController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\SSEController;
 
 require __DIR__.'/auth.php';
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 Route::post('/sendmessage', [MessageController::class, 'store'])->name('send-message');
 
+Route::get('/sse-test', function () {
+    return view('sse-test');
+});
+
+Route::get('/sse', [SSEController::class, 'stream'])->name('sse');
 
 Route::middleware('auth')->group(function () {
     
     Route::prefix('admin')->group(function () {
+
         
         Route::redirect('/', '/admin/banners&metadata');
         
@@ -30,7 +37,7 @@ Route::middleware('auth')->group(function () {
         
         Route::resource('companies', CompanyController::class)->except(['show', 'create', 'edit']);
 
-        Route::resource('contacts', ContactController::class)->except(['show']);    
+        Route::resource('contacts', ContactController::class)->except(['show', 'create', 'edit']);    
 
         Route::get('/profile', function (Request $request) {
             return view('resetPassword',compact('request') );
