@@ -1,11 +1,14 @@
-<div class="flex items-center gap-2 border px-3 py-1 rounded-full bg-white">
+<form action="{{ route('offer-categories.store') }}" method="POST" class="flex items-center gap-2 border px-3 py-1 rounded-full bg-white">
+    @csrf
     <input
         type="text"
-        name="newCategory"
+        name="name"
         placeholder="New category"
-        class="outline-none text-sm bg-transparent placeholder-gray-400" />
+        class="outline-none text-sm bg-transparent placeholder-gray-400"
+        required />
+
     <button
-        type="button"
+        type="submit"
         title="Add category"
         class="text-green-600 hover:text-green-800">
         {{-- Plus icon SVG --}}
@@ -14,4 +17,4 @@
                 d="M12 4v16m8-8H4" />
         </svg>
     </button>
-</div>
+</form>

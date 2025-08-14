@@ -1,23 +1,36 @@
-<div class="flex flex-wrap gap-3 items-center my-6"
-    id="categoryContainer">
+<div class="flex flex-wrap gap-3 items-center my-6" id="categoryContainer">
     @foreach ($categories as $cat)
     <div
-        data-category-id="{{$cat->id}}"
-        data-category-name="{{$cat->name}}"
-        class="flex items-center gap-2 border px-4 py-1 rounded-full cursor-pointer transition bg-gray-100 hover:bg-gray-200">
+        data-category-id="{{ $cat->id }}"
+        data-category-name="{{ $cat->name }}"
+        class="category-item flex items-center gap-2 border px-4 py-1 rounded-full cursor-pointer transition
+               {{ $selectedCategoryId == $cat->id ? 'bg-blue-700 text-white' : 'bg-gray-100 hover:bg-gray-200' }}"
+        onclick="document.getElementById('form-{{ $cat->id }}').submit()">
+
+        {{-- Hidden form for GET request --}}
+        <form id="form-{{ $cat->id }}" action="{{ route('offer-images.index') }}" method="GET" class="hidden">
+            <input type="hidden" name="category_id" value="{{ $cat->id }}">
+        </form>
+
         <span>{{ $cat->name }}</span>
+
+        {{-- Delete button --}}
         <button
+            data-category-id="{{ $cat->id }}"
             type="button"
-            class="text-gray-500 hover:text-red-500 transition"
-            title="Delete category">
-            {{-- Trash icon SVG --}}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            class="text-gray-500 hover:text-red-500 transition deleteCategoryBtn"
+            title="Delete category"
+            onclick="event.stopPropagation(); openDeleteModal('{{ $cat->id }}')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-
     </div>
     @endforeach
+
+
+    {{-- Add category input --}}
     <x-offers.addCategoryInput />
 </div>
