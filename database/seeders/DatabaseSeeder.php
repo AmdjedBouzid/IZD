@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         // ! Please do not remove this account, it is used for support purposes.
         User::create([
-            'name' => 'Amdjed',
-            'email' => 'Amdjed@SupportAccount.dev',
-            'password' => Hash::make('hardpassword123456789000987654321@-=-=-=-=-='),
+            'name' => 'izdtech',
+            'email' => 'izdtech@gmail.com',
+            'password' => Hash::make('izdtech2025'),
         ]);
 
         DB::table('metadata')->insert([
