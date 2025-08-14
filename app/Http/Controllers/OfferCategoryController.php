@@ -16,6 +16,7 @@ class OfferCategoryController extends Controller
         $categories = OfferCategory::all();
         $images = [];
 
+
         return view('offres', [
             'categories' => $categories,
             'images' => $images,
