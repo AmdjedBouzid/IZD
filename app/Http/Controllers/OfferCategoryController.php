@@ -31,6 +31,6 @@ class OfferCategoryController extends Controller
 
         return redirect()
             ->route('offer-images.index')
-            ->with('success', 'Category deleted successfully.');
+            ->with('success', 'Catégorie supprimée avec succès.');
     }
 }

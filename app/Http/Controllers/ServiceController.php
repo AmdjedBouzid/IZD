@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 
+use App\Models\Metadata;
+use App\Models\Banner;
+
+use App\Models\Contact;
+use App\Models\FooterColor;
+
 class ServiceController extends Controller
 {
     public function index()
@@ -34,20 +40,19 @@ class ServiceController extends Controller
 
         try {
             Log::info('1');
-            
+
             if ($request->hasFile('image_path')) {
                 $data['image_path'] = $request->file('image_path')->store('services', 'public');
                 Log::info('1.5');
             }
 
-                Log::info('2');
-                Service::create($data);
-                Log::info('3');
+            Log::info('2');
+            Service::create($data);
+            Log::info('3');
 
             return redirect()
                 ->route('services.index')
-                ->with('success', 'Service created successfully.');
-
+                ->with('success', 'Service créé avec succès.');
         } catch (\Throwable $e) {
             Log::error('Service creation failed: ' . $e->getMessage());
 
@@ -68,7 +73,7 @@ class ServiceController extends Controller
         $companies = Company::all();
         return view('services.edit', compact('service', 'companies'));
     }
-    
+
     public function update(Request $request, Service $service)
     {
         Log::info('Creating service with data: ', $request->all());
@@ -79,15 +84,15 @@ class ServiceController extends Controller
             'image_path' => 'nullable|image'
         ]);
 
-        
+
         if ($request->hasFile('image_path')) {
             Storage::disk('public')->delete($service->image_path);
             $validated['image_path'] = $request->file('image_path')->store('services', 'public');
         }
-        
+
         $service->update($validated);
 
-        return redirect()->route('services.index')->with('success', 'Service updated successfully.');
+        return redirect()->route('services.index')->with('success', 'Service mis à jour avec succès.');
     }
 
     public function destroy(Service $service)
@@ -96,6 +101,43 @@ class ServiceController extends Controller
             Storage::disk('public')->delete($service->image_path);
         }
         $service->delete();
-        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
+        return redirect()->route('services.index')->with('success', 'Service supprimé avec succès.');
+    }
+
+
+    public function getService($id)
+    {
+        $service = Service::find($id);
+        if (!$service) {
+            return response()->json(['error' => 'Service not found'], 404);
+        }
+        $service->load('company');
+        $services = Service::with('company')->get();
+        $contactIcons = config('contact-icons');
+        $contacts = Contact::all()
+            ->groupBy('platform')
+            ->map(function ($group) {
+                return $group;
+            });
+        return view('service_details', [
+            'service' => $service,
+            'footerColors' => FooterColor::first(),
+            'companies' => Company::all(),
+            'metadata' => Metadata::first(),
+            'banners' => Banner::all(),
+            'services' => $services,
+            'contacts' => $contacts,
+            'contactIcons' => $contactIcons,
+        ]);
+        // return response()->json([
+        //     'service' => $service,
+        //     'footerColors' => FooterColor::first(),
+        //     'companies' => Company::all(),
+        //     'metadata' => Metadata::first(),
+        //     'banners' => Banner::all(),
+        //     'services' => $services,
+        //     'contacts' => $contacts,
+        //     'contactIcons' => $contactIcons,
+        // ]);
     }
 }

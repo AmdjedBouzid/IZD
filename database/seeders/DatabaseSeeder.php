@@ -22,11 +22,17 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('izdtech2025'),
         ]);
 
+        User::create([
+            'name' => 'test',
+            'email' => 'test@gmail.com',
+            'password' => Hash::make('test2025'),
+        ]);
+
         DB::table('metadata')->insert([
             'website_logo_path' => 'logos/3x8B5CTBbZxEu2Bp7yZoTfwr766lcP0YewFRkrNl.png',
-            'website_name' => 'Example Site',
-            'huge_title' => 'Welcome to Example Site',
-            'description' => 'This is a sample description for the Example Site.',
+            'website_name' => 'IZDTECH',
+            'huge_title' => 'Votre solution innovante  – Protection & Sécurité',
+            'description' => 'Chez IZDTECH, nous innovons chaque jour pour offrir des solutions numériques performantes et fiables. Avec IZDFIRE, nous mettons la technologie au service de la sécurité, afin de protéger vos données et vos infrastructures avec efficacité.',
         ]);
         DB::table('footer_colors')->insert([
             'primary' => '#3b2ed0',

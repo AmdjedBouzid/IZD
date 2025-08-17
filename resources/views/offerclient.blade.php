@@ -3,6 +3,12 @@
 @section('title', 'Offre De Service')
 
 @section('content')
+@if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
+@if(session()->has('error'))
+    <x-toast-error message="{{ session('error') }}" />
+@endif
 <section class="px-6 py-16 max-w-7xl mx-auto relative">
     <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10">
         Offre De Service

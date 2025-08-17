@@ -17,7 +17,7 @@
         <form id="upload-form" action="{{ route('banners.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @error('image_path')
-                <div class="text-danger" style="color:red">{{ $message }}</div>
+               <x-toast-error message="{{ $message }}" />
             @enderror
             <input
                 type="file"
@@ -88,7 +88,7 @@
                 onchange="previewLogo(event)" />
 
             @error('website_logo_path')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <x-toast-error message="{{ $message }}" />
             @enderror
             <p id="save-hint" class="hidden text-yellow-600 text-sm mt-2">
                 💡 N'oubliez pas de cliquer sur <strong>Sauvegarder</strong> pour appliquer votre nouveau logo.
@@ -108,7 +108,7 @@
                 placeholder="Entrez un nom du site Web..."
                 class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
             @error('website_name')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <x-toast-error message="{{ $message }}" />
             @enderror
         </div>
 
@@ -125,7 +125,7 @@
                 placeholder="Entrez un texte en gras..."
                 class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
             @error('huge_title')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <x-toast-error message="{{ $message }}" />
             @enderror
         </div>
 
@@ -141,7 +141,7 @@
                 placeholder="Entrez un paragraphe..."
                 class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]">{{ old('description', $metadata->description) }}</textarea>
             @error('description')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <x-toast-error message="{{ $message }}" />
             @enderror
         </div>
 
@@ -157,7 +157,7 @@
                 value="{{ old('font_color', $metadata->font_color)  }}"
                 class="w-16 h-10 p-0 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
             @error('font_color')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <x-toast-error message="{{ $message }}" />
             @enderror
         </div>
 
@@ -190,7 +190,12 @@
             </div>
         </div>
     </div>
-
+@if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
+@if(session()->has('error'))
+    <x-toast-error message="{{ session('error') }}" />
+@endif
 </div>
 
 <script>

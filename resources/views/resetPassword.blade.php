@@ -38,7 +38,7 @@
                 required
             />
             @error('current_password', 'updatePassword')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+               <x-toast-error message="{{ $message }}" />
             @enderror
         </div>
 
@@ -56,12 +56,15 @@
                 required
             />
             @error('password', 'updatePassword')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <x-toast-error message="{{ $message }}" />
             @enderror
         </div>
 
         {{-- Confirm new password --}}
         <div>
+            @if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
             <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-1">
                 Confirmer le mot de passe
             </label>

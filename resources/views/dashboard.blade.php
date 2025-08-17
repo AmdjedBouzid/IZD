@@ -13,5 +13,11 @@
                 </div>
             </div>
         </div>
+            @if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
+@if(session()->has('error'))
+    <x-toast-error message="{{ session('error') }}" />
+@endif
     </div>
 </x-app-layout>

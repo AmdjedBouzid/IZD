@@ -39,12 +39,9 @@ class OfferImageController extends Controller
         return view('offres', [
             'categories' => $categories,
             'images' => $images,
-            'selectedCategoryId' => $newCategory->id
+            'selectedCategoryId' => $newCategory->id,
+            'success' => 'Image téléversée avec succès'
         ]);
-
-        return redirect()
-            ->route('offer-images.index')
-            ->with('success', 'Image uploaded successfully.');
     }
 
     public function index(Request $request)
@@ -81,7 +78,8 @@ class OfferImageController extends Controller
         return view('offres', [
             'categories' => $categories,
             'images' => $images,
-            'selectedCategoryId' => $categoryId
+            'selectedCategoryId' => $categoryId,
+
         ]);
     }
 
@@ -125,7 +123,8 @@ class OfferImageController extends Controller
         return view('offres', [
             'categories' => $categories,
             'images' => $images,
-            'selectedCategoryId' => $selectedCategoryId
+            'selectedCategoryId' => $selectedCategoryId,
+            'success' => 'Images supprimées avec succès.'
         ]);
     }
 

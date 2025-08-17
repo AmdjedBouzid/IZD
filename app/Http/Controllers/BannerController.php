@@ -13,10 +13,11 @@ class BannerController extends Controller
     public function index()
     {
         $banners = Banner::all();
-        
+
         return view('metadata', [
             'metadata' => Metadata::first(),
-            'banners' => $banners]);
+            'banners' => $banners
+        ]);
     }
 
     public function deleteMultiple(Request $request)
@@ -25,7 +26,7 @@ class BannerController extends Controller
             'ids' => 'required|array',
             'ids.*' => 'integer|exists:banners,id',
         ]);
-        try { 
+        try {
             $banners = Banner::whereIn('id', $request->ids)->get();
             foreach ($banners as $banner) {
                 if ($banner->image_path) {
@@ -33,17 +34,17 @@ class BannerController extends Controller
                 }
             }
             Banner::whereIn('id', $request->ids)->delete();
-            return response()->json(['message' => 'Banners deleted successfully.']);
+            return response()->json(['message' => 'Bannières supprimées avec succès.']);
         } catch (\Throwable $e) {
             Log::error('Banner deletion failed: ' . $e->getMessage());
-        
+
             return redirect()
                 ->back()
                 ->with('error', 'Something went wrong while deleting the banner.');
         }
     }
-    
-    
+
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -61,7 +62,7 @@ class BannerController extends Controller
 
             return redirect()
                 ->route('banners&metadata')
-                ->with('success', 'Banner created successfully.');
+                ->with('success', 'les bannières créées avec succès.');
         } catch (\Throwable $e) {
 
             return redirect()
@@ -71,21 +72,3 @@ class BannerController extends Controller
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

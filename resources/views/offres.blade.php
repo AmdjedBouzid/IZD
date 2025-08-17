@@ -1,5 +1,11 @@
 @extends('layouts.admin')
 @section('content')
+@if(!empty($success))
+    <x-toast-success :message="$success" />
+@endif
+@if(session()->has('error'))
+    <x-toast-error message="{{ session('error') }}" />
+@endif
 <x-offers.header :categories="$categories" :selectedCategoryId="$selectedCategoryId" />
 <x-offers.categories :categories="$categories" :selectedCategoryId="$selectedCategoryId" />
 <x-offers.selectButtons />
@@ -10,9 +16,7 @@
     @endforeach
 </div>
 @error('name')
-<div class="flex items-center gap-2  px-3 py-1 rounded-full bg-white justify-center mt-6">
-    <span class="text-red-500 text-sm">{{ $message }}</span>
-</div>
+<x-toast-error message="{{ $message }}" />
 @enderror
 <x-offers.deleteImagesModal :selectedCategoryId="$selectedCategoryId" />
 <x-offers.deleteCategoryModal />

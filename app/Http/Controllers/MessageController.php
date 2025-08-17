@@ -16,7 +16,7 @@ class MessageController extends Controller
     {
         try {
             $messages = Message::all();
-            $metadata = Metadata::first(); 
+            $metadata = Metadata::first();
             return view('messages', compact('messages', 'metadata'));
         } catch (\Throwable $e) {
             Log::error('Failed to fetch messages: ' . $e->getMessage());
@@ -24,7 +24,7 @@ class MessageController extends Controller
         }
     }
 
-   
+
     /**
      * Store a new message.
      */
@@ -39,8 +39,7 @@ class MessageController extends Controller
             Message::create($data);
 
             return back()
-                ->with('success', 'Message sent successfully.');
-
+                ->with('success', 'Message envoyé avec succès.');
         } catch (\Throwable $e) {
             Log::error('Message creation failed: ' . $e->getMessage());
             return back()
@@ -60,7 +59,7 @@ class MessageController extends Controller
 
             return redirect()
                 ->route('messages.index')
-                ->with('success', 'Message deleted successfully.');
+                ->with('success', 'Message supprimé avec succès.');
         } catch (\Throwable $e) {
             Log::error('Failed to delete message: ' . $e->getMessage());
             return back()->with('error', 'Unable to delete the message.');

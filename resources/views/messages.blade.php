@@ -3,6 +3,14 @@
 @section('content')
 
 <div class="p-8 space-y-10 bg-white rounded-xl shadow-md max-sm:p-0">
+        @if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
+@if(session()->has('error'))
+    <x-toast-error message="{{ session('error') }}" />
+    @endif
+
+    {{-- Header --}}
     <h1 class="text-3xl font-bold text-primary">Messages</h1>
 
     @forelse ($messages as $msg)
@@ -27,7 +35,9 @@
             </form>
         </div>
     </div>
+
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

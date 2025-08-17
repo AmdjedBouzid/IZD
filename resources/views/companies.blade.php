@@ -4,7 +4,12 @@
 @section('content')
 
 <section class="p-8 space-y-10 bg-white rounded-xl shadow-md max-sm:p-0">
-
+    @if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
+@if(session()->has('error'))
+    <x-toast-error message="{{ session('error') }}" />
+@endif
     {{-- Header --}}
     <div class="flex items-center justify-between">
         <h2 class="text-3xl font-bold text-primary">Entreprises</h2>

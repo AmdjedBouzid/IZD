@@ -23,15 +23,15 @@ class ContactController extends Controller
             'value' => 'required|string|max:255',
             'name' => 'required|string|max:255',
         ]);
-        
+
         try {
             Contact::create($data);
-            
+
             return redirect()
                 ->route('contacts.index')
-                ->with('success', 'Contact created successfully.');
-            } catch (\Throwable $e) {
-                Log::error('Contact creation failed: ' . $e->getMessage());
+                ->with('success', 'le contact créé avec succès.');
+        } catch (\Throwable $e) {
+            Log::error('Contact creation failed: ' . $e->getMessage());
 
             return redirect()
                 ->back()
@@ -54,16 +54,16 @@ class ContactController extends Controller
         ]);
 
 
-        
+
         try {
 
             $contact->update($data);
             $colors = FooterColor::first();
             $colors->update($request->only(['primary', 'secondary', 'items']));
-            
+
             return redirect()
                 ->route('contacts.index')
-                ->with('success', 'Contact updated successfully.');
+                ->with('success', 'le contact mis à jour avec succès.');
         } catch (\Throwable $e) {
             Log::error('Contact update failed: ' . $e->getMessage());
 
@@ -81,7 +81,7 @@ class ContactController extends Controller
 
             return redirect()
                 ->route('contacts.index')
-                ->with('success', 'Contact deleted successfully.');
+                ->with('success', 'le contact supprimé avec succès.');
         } catch (\Throwable $e) {
             Log::error('Contact deletion failed: ' . $e->getMessage());
 

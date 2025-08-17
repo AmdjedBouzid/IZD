@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', '{{ $metadata->website_name }}')</title>
-    @vite('resources/css/app.css')
+   @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <link rel="icon" href="{{ Storage::url($metadata->website_logo_path) }}" type="image/png">
     <link rel="stylesheet" type="text/css"
           href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
@@ -78,35 +79,56 @@
     </nav>
 
     {{-- Main content --}}
-    <main class="pt-20">
-        @yield('content')
-    </main>
+<main class="{{ request()->is('service_details/*') ? 'pt-15' : '' }}">
+    @yield('content')
+</main>
+
 
     {{-- JS --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuToggle = document.getElementById("menu-toggle");
-            const mobileMenu = document.getElementById("mobile-menu");
-            const links = document.querySelectorAll(".nav-link");
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const links = document.querySelectorAll(".nav-link");
 
-            menuToggle.addEventListener("click", () => {
-                mobileMenu.classList.toggle("active");
-            });
+        menuToggle.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+        });
 
-            links.forEach(link => {
-                link.addEventListener("click", function(e) {
-                    const href = this.getAttribute("href");
-                    if (href.startsWith("#")) {
-                        e.preventDefault();
+        links.forEach(link => {
+            link.addEventListener("click", function(e) {
+                const href = this.getAttribute("href");
+
+                if (href.startsWith("#")) {
+                    e.preventDefault();
+
+                    if (window.location.pathname === "/") {
+                        // Already on homepage → scroll directly
                         document.querySelector(href)?.scrollIntoView({
                             behavior: "smooth"
                         });
-                        mobileMenu.classList.remove("active");
+                    } else {
+                        // On another page → redirect with hash
+                        window.location.href = "/" + href;
                     }
-                });
+
+                    mobileMenu.classList.remove("active");
+                }
             });
         });
-    </script>
+
+        // If page loads with hash (from another page), scroll to section
+        if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }, 300);
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>

@@ -12,7 +12,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('companies', ['companies'=>$companies]);
+        return view('companies', ['companies' => $companies]);
     }
 
 
@@ -26,7 +26,7 @@ class CompanyController extends Controller
             Company::create($validated);
             return redirect()
                 ->route('companies.index')
-                ->with('success', 'Company created successfully.');
+                ->with('success', 'les entreprises créées avec succès.');
         } catch (\Throwable $e) {
             Log::error('Company creation failed: ' . $e->getMessage());
             return redirect()
@@ -46,7 +46,7 @@ class CompanyController extends Controller
             $company->update($validated);
             return redirect()
                 ->route('companies.index')
-                ->with('success', 'Company updated successfully.');
+                ->with('success', 'les entreprises mises à jour avec succès.');
         } catch (\Throwable $e) {
             Log::error('Company update failed: ' . $e->getMessage());
             return redirect()
@@ -62,7 +62,7 @@ class CompanyController extends Controller
             $company->delete();
             return redirect()
                 ->route('companies.index')
-                ->with('success', 'Company deleted successfully.');
+                ->with('success', 'les entreprises supprimées avec succès.');
         } catch (\Throwable $e) {
             Log::error('Company deletion failed: ' . $e->getMessage());
             return redirect()

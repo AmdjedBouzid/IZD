@@ -4,7 +4,9 @@
 @section('content')
 
 <section class="p-8 space-y-10 bg-white rounded-xl shadow-md max-sm:p-0">
-
+  @if(session()->has('success'))
+    <x-toast-success message="{{ session('success') }}" />
+@endif
     {{-- Header --}}
     <div class="flex items-center justify-between">
         <h2 class="text-3xl font-bold text-primary">Services</h2>
@@ -42,8 +44,7 @@
                 <tr data-company-id="{{ $service['company_id'] }}" data-service-id="{{ $service['id'] }}" class="border-b last:border-none hover:bg-gray-50 transition">
                     <td class="p-4 align-top font-medium text-gray-800">{{ $service['title'] }}</td>
                     <td class="p-4 align-top text-gray-700">{{ $service['company']->name }}</td>
-                    <td class="p-4 align-top text-gray-600 whitespace-pre-wrap break-words w-40 sm:w-auto">
-                        {{ $service['description'] }}
+                    <td class="p-4 align-top text-gray-600 whitespace-pre-wrap break-words w-40 sm:w-auto">{{ $service['description'] }}
                     </td>
                     <td class="p-4 align-top">
                         @if($service->image_path)
